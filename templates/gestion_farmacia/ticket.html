@@ -1,0 +1,63 @@
+{% extends 'gestion_farmacia/base.html' %}
+{% load static %}
+{% block title %}
+.: Ticket :.        
+{% endblock title %}
+{% block styles %}
+<link rel="stylesheet" href="{% static 'gestion_farmacia/styles/ticket.css' %}">
+{% endblock styles %}
+
+
+{% block content %}s
+<div class="container">
+    <div class="row justify-content-center">
+<div class="ticket">
+    <img
+    src="{% static 'gestion_farmacia/img/logito.png' %}"
+        alt="Logotipo">
+        <div class="mb-3"></div>
+    <p class="centrado">TICKET DE VENTA<br>CEDAE<br>21/12/2021
+        10:04 p.m.</p>
+    <table>
+        <thead>
+            <tr>
+                <th>CANT</th>
+                <th>PRODUCTO</th>
+                <th>$$</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1.00</td>
+                <td>Paracetamol 80 G</td>
+                <td>$85.50</td>
+            </tr>
+            <tr>
+                <td>3.00</td>
+                <td>Vaporub</td>
+                <td>$102.00</td>
+            </tr>
+            <tr>
+                <td>1.00</td>
+                <td>Genoprazol</td>
+                <td>$85.00</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>TOTAL</td>
+                <td>$272.50</td>
+            </tr>
+        </tbody>
+    </table>
+    <p class="centrado">¡GRACIAS POR SU COMPRA!<br>www.cedae.com</p>
+</div>
+</div>
+</div>
+
+{% endblock content %}
+
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script src="{% static 'gestion_farmacia/scripts/infomedicin.js' %}"></script>
+{% endblock scripts %}

@@ -1,0 +1,88 @@
+{% extends 'gestion_farmacia/base.html' %}
+{% load static %}
+{% block title %}
+.: Agregar Medicamento :.        
+{% endblock title %}
+{% block styles %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+<link rel="stylesheet" href="{% static 'gestion_farmacia/styles/registerPatient.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <form class="w-100 border data-form rounded p-8 mt-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div>
+                            <p class="display-4 text-primary text-center my-2">Datos del medicamento</p>
+                        </div>
+                        <p class="font-weight-bold text-primary mt-3">Los campos con <span class="text-danger">*</span>
+                            son obligatorios</p>
+                        <div class="form-group">
+                            <label for="exampleFormControlInput1">ID <span class="text-danger font-weight-bold ml-5">*</span></label>
+                            <input type="text" class="form-control" id="Idaddmedicamento">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlInput1">Nombre medicamento <span class="text-danger font-weight-bold ml-5">*</span></label>
+                            <input type="text" class="form-control" id="exampleFormControlInput1">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlInput1">Lote</label>
+                            <input type="text" class="form-control" id="exampleFormControlInput1">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlInput1">Gramaje <span class="text-danger font-weight-bold ml-5">*</span></label>
+                            <input type="text" class="form-control" id="exampleFormControlInput1">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlInput1">Ingrediente activo <span class="text-danger font-weight-bold ml-5">*</span></label>
+                            <input type="text" class="form-control" id="exampleFormControlInput1">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlInput1">Proveedor</label>
+                            <input type="text" class="form-control" id="exampleFormControlInput1">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlInput1">Domicilio de farmacia <span class="text-danger font-weight-bold ml-5">*</span></label>
+                            <input type="text" class="form-control" id="exampleFormControlInput1">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlInput1">Precio <span class="text-danger font-weight-bold ml-5">*</span></label>
+                            <input type="text" class="form-control" id="exampleFormControlInput1">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlInput1">Fecha de Caducidad</label>
+                            <input type="text" class="form-control" id="exampleFormControlInput1">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlInput1">Nombre contacto de distribuidor</label>
+                            <input type="text" class="form-control" id="exampleFormControlInput1">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlInput1">Teléfono de distribuidor <span class="text-danger font-weight-bold ml-5">*</span></label>
+                            <input type="email" class="form-control" id="exampleFormControlInput1">
+                        </div>
+                        <div class="form-group d-flex justify-content-center">
+                            <button type="button" onclick="registrarmedicamento()" class="btn-lg w-100 btn-primary mt-5 p-2">Registrar
+                                medicamento</button>
+                        </div>
+                        <div class="form-group d-flex justify-content-center">
+                            <button type="button" onclick="medicamentoRegistrado()" class="btn-lg w-100 btn-danger mt-5 p-2">Prueba medicamento registrado</button>
+                        </div>
+                        <div class="form-group d-flex justify-content-center">
+                            <button type="button" onclick="camposIncompletos()" class="btn-lg w-100 btn-warning mt-5 p-2">Prueba campos incompletos</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script src="{% static 'gestion_farmacia/scripts/registermedicin.js' %}"></script>
+{% endblock %}

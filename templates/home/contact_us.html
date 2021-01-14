@@ -1,0 +1,73 @@
+{% extends 'home/base.html' %}
+{% load static %}
+
+{% block title %}
+.: Contactanos :.
+{% endblock title %}
+
+{% block styles %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/fullcalendar@5.4.0/main.min.css,npm/fullcalendar@5.4.0/main.min.css">
+<link rel="stylesheet" href="{% static 'home/styles/contac_us.css'%}">
+{% endblock%}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="well well-sm">
+                <form class="form-horizontal" method="post">
+                    <fieldset>
+                        <p class="display-4 text-primary text-center my-2">Contactanos</p>
+                        
+                        <div class="form-group">
+
+                            <span class="col-md-1 col-md-offset-2 text-center"><i class="fa fa-user bigicon"></i></span>
+                            <div class="col-md-12">
+                                <input id="fname" name="name" type="text" placeholder="Nombre(s)" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <span class="col-md-1 col-md-offset-2 text-center"><i class="fa fa-user bigicon"></i></span>
+                            <div class="col-md-12">
+                                <input id="lname" name="name" type="text" placeholder="Apellidos" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <span class="col-md-1 col-md-offset-2 text-center"><i class="fa fa-envelope-o bigicon"></i></span>
+                            <div class="col-md-12">
+                                <input id="email" name="email" type="text" placeholder="Direccion de correo electronico" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <span class="col-md-1 col-md-offset-2 text-center"><i class="fa fa-phone-square bigicon"></i></span>
+                            <div class="col-md-12">
+                                <input id="phone" name="phone" type="text" placeholder="Telefono" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <span class="col-md-1 col-md-offset-2 text-center"><i class="fa fa-pencil-square-o bigicon"></i></span>
+                            <div class="col-md-12">
+                                <textarea class="form-control" id="message" name="message" placeholder="Deja tu mensaje aqui y nosotros te contactaremos a la brevedad" rows="7"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-12 text-center">
+                                <button type="submit" class="btn btn-primary btn-lg">Enviar Mensaje</button>
+                            </div>
+                        </div>
+                    </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}

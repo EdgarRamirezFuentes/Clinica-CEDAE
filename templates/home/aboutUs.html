@@ -1,0 +1,134 @@
+{% extends 'home/base.html' %}
+{% load static %}
+
+{% block title %}
+.: Acerca de nosotros :.        
+{% endblock title %}
+
+{% block styles %}
+<!--Animate.css-->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+<link rel="stylesheet" href="{% static 'home/styles/aboutUs.css' %}">
+{% endblock styles %}
+
+{% block content %}
+<div class="container">
+    <div class="row mb-5">
+        <p class="text-center text-primary mt-5 display-4 w-100">Acerca de nosotros</p>
+        <div class="d-flex mt-3 mb-2">
+            <div class="col-md-4">
+                <img class="fit-cover" src="{% static 'home/img/dra-jatziri-chavez.png' %}" alt="">
+            </div>
+            <div class="col-md-9">
+                <div class="mt-5 d-flex h-100 align-items-center flex-column justify-content-center">
+                    <p class="text-justify">Somos un centro dermatológico dirigido por la Dra. Jatziri Chávez, miembro
+                        de la Sociedad Mexicana de Dermatología y de la Sociedad Mexicana de Cirugía Dermatológica y
+                        Oncológica. Contamos con tecnología de punta para el cuidado de la piel, pelo y uñas.</p>
+                    <p class="text-primary font-weight-bold mt-3">En CEDAE somos expertos en el tratamiento de cáncer de
+                        piel.</p>
+                    <p class="display-4 text-info mt-4">Dra. Jatziri Chávez</p>
+                    <p class="text-secondary h6">Directora del Centro dermatológico de alta especialidad (CEDAE)</p>
+                    <p class="text-secondary">Dermatología clínica, oncológica, quirúrgica y cosmética.</p>
+                </div>
+            </div>
+        </div>
+        <div class="bg-info w-100 d-flex text-light rounded justify-content-around">
+            <div class="col-md-5 animate__animated animate__bounce p-2">
+                <p class="text-center h4 w-100 font-weight-bold my-4">Filosofía</p>
+                <p class="text-justify">
+                    Diagnosticar, prevenir y rehabilitar enfermedades de la piel de una manera especializada y de
+                    excelencia, con tecnología y profesionalismo para garantizar un servicio de vanguardia y con altos
+                    estándares de cuidado médico.
+                    Brindar atención personalizada y humana a cada uno de nuestros pacientes con un equipo de trabajo
+                    profesional, brindar un servicio integral, donde la ética, responsabilidad, confidencialidad y
+                    calidez
+                    son nuestros valores más importantes
+                </p>
+            </div>
+            <div class="col-md-5 animate__animated animate__bounce p-2">
+                <p class="text-center h4 w-100 font-weight-bold my-4">Misión</p>
+                <p class="text-justify">
+                Ser uno de los mejores Centros Dermatológicos en México, dedicado al cuidado de la piel, pelo y uñas con
+                innovación constante, tecnología de vanguardia, actualización de conocimientos médicos y calidez para
+                mejorar la vida de nuestros pacientes. Ser un grupo comprometido con la docencia, la investigación e
+                innovación para mejorar la calidad de vida de nuestros pacientes.</p>
+            </div>
+        </div>
+        <div class="expertos container">
+            <p class="h5 mt-5 text-center w-100 text-info">Conoce a nuestros expertos dermatólogos</p>
+            <ul class="lista-expertos clearfix">
+                <li>
+                    <div class="rounded experto">
+                        <img  class="experto-img" src="{% static 'home/img/dra-jatziri-chavez.png' %}" alt="">
+                        <p class="h5 text-center">Dra. Jatziri Chávez<br><span class="h6">Dermato-oncológica</span></p>
+                    </div>
+                </li>
+                <li>
+                    <div class="rounded experto">
+                        <img  class="experto-img" src="{% static 'home/img/dra-cristina-lazo-garcia.jpg' %}" alt="">
+                        <p class="h5 text-center">Dra. Cristina Lazo García<br><span class="h6">Especialista en Dermatología Oncológica, Cirugía de Piel y Cosmética</span></p>
+                    </div>
+                </li>
+                <li>
+                    <div class="rounded experto">
+                        <img  class="experto-img" src="{% static '/home/img/dra-zamira-rios-garza.jpg' %}" alt="">
+                        <p class="h5 text-center">Dra. Zamira Ríos Garza<br><span class="h6">Dermatología y Cirugía Dermatológica</span></p>
+                    </div>
+                </li>
+                <li>
+                    <div class="rounded experto">
+                        <img  class="experto-img" src="{% static 'home/img/dra-monica-de-la-torre.png' %}" alt="">
+                        <p class="h5 text-center">Dra. Mónica de la Torre<br><span class="h6">Dermatooncología y Cirugía Dermatológica</span></p>
+                    </div>
+                </li>
+                <li>
+                    <div class="rounded experto">
+                        <img  class="experto-img" src="{% static 'home/img/dra-paulina-rita-corona-castillo.jpg' %}" alt="">
+                        <p class="h5 text-center">Dra. Paulina Rita Corona Castillo<br><span class="h6">Dermatología Clínica, Quirúrgica y Cosmética</span></p>
+                    </div>
+                </li>
+                <li>
+                    <div class="rounded experto">
+                        <img  class="experto-img" src="{% static 'home/img/dra-sarai-sanchez-rodriguez.jpg' %}" alt="">
+                        <p class="h5 text-center">Dra. Saraí Sánchez Rodríguez<br><span class="h6">Pediatría y Dermatología Pediatrica</span></p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="instalaciones-container w-100 d-flex flex-column justify-content-center align-items-center">
+            <p class="h5 mt-5 text-center w-100 text-info mb-5">Instalaciones con tecnología de vanguardia</p>
+            <div id="carouselExampleIndicators" class="carousel slide w-100" data-ride="carousel">
+                <ol class="carousel-indicators">
+                  <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                  <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                  <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                </ol>
+                <div class="carousel-inner">
+                  <div class="carousel-item wide active">
+                    <img class="d-block w-100" src="{% static 'home/img/imagen5.jpg' %}" alt="First slide">
+                  </div>
+                  <div class="carousel-item wide">
+                    <img class="d-block w-100" src="{% static 'home/img/imagen5.jpg' %}" alt="Second slide">
+                  </div>
+                  <div class="carousel-item wide">
+                    <img class="d-block w-100" src="{% static 'home/img/imagen5.jpg' %}" alt="Third slide">
+                  </div>
+                </div>
+                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Next</span>
+                </a>
+              </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+
+{% block scripts %}
+
+{% endblock scripts %}

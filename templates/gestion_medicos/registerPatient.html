@@ -1,0 +1,365 @@
+{% extends 'gestion_medicos/base.html' %}
+{% load static %}
+
+{% block title %}
+.: Registrar paciente :.
+{% endblock title %}
+
+
+{% block styles %}
+<script src="{% static 'gestion_medicos/scripts/alertas.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+<link rel="stylesheet" href="{% static 'gestion_medicos/styles/registerPatient.css' %}">
+{% endblock %}
+
+{% block content %}
+{% if messages %}
+    {% for message in messages %}
+        <script>message("{{message}}", "{{message.tags}}");</script>  
+    {% endfor %}
+{% endif %}
+<div class="container">
+    <div class="row justify-content-center text-center">
+        <p class="h3 mt-3 w-100">Selecciona una opción para desplegar el formulario requerido</p>
+        <p class="h5 mt-3 w-100 text-danger">Nota: Para cerrar un formulario vuelva a presionar el botón</p>
+        <div class="mt-5">
+            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#usuarioExterno" aria-expanded="false" aria-controls="usuarioExterno">
+                Usuario externo
+            </button>
+            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#usuarioCEDAE" aria-expanded="false" aria-controls="usuarioCEDAE">
+                Trabajador de CEDAE
+            </button>
+        </div>
+    </div>
+</div>
+<div class="container collapse" id="usuarioExterno">
+    <div class="row">
+        <form class="w-100 border data-form rounded p-3 mt-5" method="POST" id="externoForm" name="externoForm">  
+            {% csrf_token %}
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div>
+                            <p class="display-4 text-primary text-center my-2">Datos paciente</p>
+                        </div>
+                        <p class="font-weight-bold text-primary mt-3">Los campos con <span class="text-danger">*</span>
+                            son obligatorios</p>
+                        <input type="text" class="d-none" name="paciente" value ="externo" id="pacienteExterno">
+                        <div class="form-group">
+                            <p class="text-danger externoLabel" id="curpError"></p>
+                            <label>CURP <span class="text-danger font-weight-bold ml-5">*</span></label>
+                            <input type="text" class="form-control" id="curp" name="curp">
+                        </div>
+                        <div class="form-group">
+                            <p class="text-danger externoLabel" id="nombreError"></p>
+                            <label>Nombre <span class="text-danger font-weight-bold ml-5">*</span></label>
+                            <input type="text" class="form-control" id="nombrePaciente" name="nombrePaciente">
+                        </div>
+                        <div class="form-group">
+                            <p class="text-danger externoLabel" id="aPaternoError"></p>
+                            <label>Apellido paterno <span class="text-danger font-weight-bold ml-5">*</span></label>
+                            <input type="text" class="form-control" id="aPaternoPaciente" name="aPaternoPaciente">
+                        </div>
+                        <div class="form-group">
+                            <p class="text-danger externoLabel" id="aMaternoError"></p>
+                            <label>Apellido materno <span class="text-danger font-weight-bold ml-5">*</span></label>
+                            <input type="text" class="form-control" id="aMaternoPaciente" name="aMaternoPaciente">
+                        </div>
+                        <div class="form-group">
+                            <p class="text-danger externoLabel" id="nacimientoError"></p>
+                            <label>Fecha de nacimiento <span class="text-danger font-weight-bold ml-5">*</span></label>
+                            <input type="date" class="form-control" id="nacimiento" name="nacimiento">
+                        </div>
+                        <div class="form-group">
+                            <p class="text-danger externoLabel" id="generoError"></p>
+                            <label>Género <span class="text-danger font-weight-bold ml-5">*</span></label>
+                            <select class="form-control" id="genero" name="genero">
+                                <option value="default">Seleccione una opcion...</option>
+                                <option value="masculino">Masculino</option>
+                                <option value="femenino">Femenino</option>
+                                <option value="otro">Otro</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <p class="text-danger externoLabel" id="telParticularError"></p>
+                            <label>Teléfono particular</label>
+                            <input type="text" class="form-control" id="telParticular" name="telParticular">
+                        </div>
+                        <div class="form-group">
+                            <p class="text-danger externoLabel" id="telCelularError"></p>
+                            <label>Teléfono celular <span class="text-danger font-weight-bold ml-5">*</span></label>
+                            <input type="text" class="form-control" id="telCelular" name="telCelular">
+                        </div>
+                        <div class="form-group">
+                            <p class="text-danger externoLabel" id="paisNacimientoError"></p>
+                            <label>País de nacimiento <span class="text-danger font-weight-bold ml-5">*</span></label>
+                            <select class="form-control" name="paises" id="paises">
+                                <option value="default">Seleccione una opcion...</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <p class="text-danger externoLabel" id="rfcError"></p>
+                            <label>RFC</label>
+                            <input type="text" class="form-control" id="rfc" name="rfc">
+                        </div>
+                        <div class="form-group">
+                            <p class="text-danger externoLabel" id="correoError"></p>
+                            <label>Correo electrónico <span class="text-danger font-weight-bold ml-5">*</span></label>
+                            <input type="email" class="form-control" id="correo" name="correo">
+                        </div>
+                        <div class="form-group">
+                            <p class="text-danger externoLabel" id="estadoError"></p>
+                            <label>Estado <span class="text-danger font-weight-bold ml-5">*</span></label>
+                            <!--<input type="text" class="form-control" id="estado" name="estado">-->
+                            <select name="estados" id="estados" class="form-control">
+                                <option value="default">Seleccione una opcion...</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <p class="text-danger externoLabel" id="alcaldiaError"></p>
+                            <label>Municipio <span class="text-danger font-weight-bold ml-5">*</span></label>
+                            <select name="alcaldia" id="alcaldia" class="form-control">
+                                <option value="default">Seleccione una opcion...</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <p class="text-danger externoLabel" id="codigoPostalError"></p>
+                            <label>Código postal <span class="text-danger font-weight-bold ml-5">*</span></label>
+                            <select name="codigoPostal" id="codigoPostal" class="form-control">
+                                <option value="default">Seleccione una opcion...</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <p class="text-danger externoLabel" id="coloniaError"></p>
+                            <label>Colonia <span class="text-danger font-weight-bold ml-5">*</span></label>
+                            <select name="colonia" id="colonia" class="form-control">
+                                <option value="default">Seleccione una opcion...</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <p class="text-danger externoLabel" id="calleError"></p>
+                            <label>Calle<span class="text-danger font-weight-bold ml-5">*</span></label>
+                            <input type="text" class="form-control" id="calle" name="calle">
+                        </div>
+                        <div class="form-group">
+                            <p class="text-danger externoLabel" id="numeroInteriorError"></p>
+                            <label>Número Interior</label>
+                            <input type="text" class="form-control" id="numeroInterior" name="numeroInterior">
+                        </div>
+                        <div class="form-group">
+                            <p class="text-danger externoLabel" id="numeroExteriorError"></p>
+                            <label>Número Exterior <span class="text-danger font-weight-bold ml-5">*</span></label>
+                            <input type="text" class="form-control" id="numeroExterior" name="numeroExterior">
+                        </div>
+                        <div class="form-group">
+                            <p class="text-danger externoLabel" id="estadoCivilError"></p>
+                            <label>Estado civil <span class="text-danger font-weight-bold ml-5">*</span></label>
+                            <select class="form-control" id="estadoCivil" name="estadoCivil">
+                                <option value="default">Seleccione una opción...</option>
+                                <option value="soltero">Soltero</option>
+                                <option value="casado">Casado</option>
+                                <option value="viudo">Viudo</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <p class="text-danger externoLabel" id="nombreEmergenciaError"></p>
+                            <label>Nombre contacto de emergencia <span class="text-danger font-weight-bold ml-5">*</span></label>
+                            <input type="text" class="form-control" id="nombreEmergencia" name="nombreEmergencia">
+                        </div>
+                        <div class="form-group">
+                            <p class="text-danger externoLabel" id="aPaternoEmergenciaError"></p>
+                            <label>Apellido paterno contacto de emergencia <span class="text-danger font-weight-bold ml-5">*</span></label>
+                            <input type="text" class="form-control" id="aPaternoEmergencia" name="aPaternoEmergencia">
+                        </div>
+                        <div class="form-group">
+                            <p class="text-danger externoLabel" id="aMaternoEmergenciaError"></p>
+                            <label>Apellido materno contacto de emergencia <span class="text-danger font-weight-bold ml-5">*</span></label>
+                            <input type="text" class="form-control" id="aMaternoEmergencia" name="aMaternoEmergencia">
+                        </div>
+                        <div class="form-group">
+                            <p class="text-danger externoLabel" id="telEmergenciaError"></p>
+                            <label>Télefono celular contacto de emergencia <span class="text-danger font-weight-bold ml-5">*</span></label>
+                            <input type="text" class="form-control" id="telEmergencia" name="telEmergencia">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div>
+                            <p class="display-4 text-primary text-center my-4">Datos expediente</p>
+                        </div>
+                        <div class="form-group">
+                            <p class="text-danger externoLabel" id="alergiasError"></p>
+                            <label>Alergias <span class="text-danger font-weight-bold ml-5">*</span></label>
+                            <textarea class="form-control" id="alergias" name="alergias"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <p class="text-danger externoLabel" id="antecedentePersonalError"></p>
+                            <label>Antecedente personal <span class="text-danger font-weight-bold ml-5">*</span></label>
+                            <textarea class="form-control" id="antecedentePersonal" name="antecedentePersonal"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <p class="text-danger externoLabel" id="antecedenteFamiliarError"></p>
+                            <label>Antecedente familiar <span class="text-danger font-weight-bold ml-5">*</span></label>
+                            <textarea class="form-control"  id="antecedenteFamiliar" name="antecedenteFamiliar"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <p class="text-danger externoLabel" id="padecimientoError"></p>
+                            <label>Padecimiento <span class="text-danger font-weight-bold ml-5">*</span></label>
+                            <textarea class="form-control" id="padecimiento" name="padecimiento"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <p class="text-danger externoLabel" id="temperaturaError"></p>
+                            <label>Temperatura <span class="text-danger font-weight-bold ml-5">*</span></label>
+                            <input type="text" class="form-control" id="temperatura" name="temperatura">
+                        </div>
+                        <div class="form-group">
+                            <p class="text-danger externoLabel" id="frecuenciaCardiacaError"></p>
+                            <label>Frecuencia cardiaca <span class="text-danger font-weight-bold ml-5">*</span></label>
+                            <input type="text" class="form-control" id="frecuenciaCardiaca" name="frecuenciaCardiaca">
+                        </div>
+                        <div class="form-group">
+                            <p class="text-danger externoLabel" id="frecuenciaRespiratoriaError"></p>
+                            <label>Frecuencia respiratoria <span class="text-danger font-weight-bold ml-5">*</span></label>
+                            <input class="form-control" id="frecuenciaRespiratoria" name="frecuenciaRespiratoria">
+                        </div>
+                        <div class="form-group">
+                            <p class="text-danger externoLabel" id="presionArterialError"></p>
+                            <label>Presión arterial <span class="text-danger font-weight-bold ml-5">*</span></label>
+                            <input type="text" class="form-control" id="presionArterial" name="presionArterial">
+                        </div>
+                        <div class="form-group">
+                            <p class="text-danger externoLabel" id="oxigenacionError"></p>
+                            <label>Oxigenación <span class="text-danger font-weight-bold ml-5">*</span></label>
+                            <input type="text" class="form-control" id="oxigenacion" name="oxigenacion">
+                        </div>
+                        <div class="form-group">
+                            <p class="text-danger externoLabel" id="alturaError"></p>
+                            <label>Altura <span class="text-danger font-weight-bold ml-5">*</span></label>
+                            <input type="text" class="form-control" id="altura" name="altura">
+                        </div>
+                        <div class="form-group">
+                            <p class="text-danger externoLabel" id="pesoError"></p>
+                            <label>Peso <span class="text-danger font-weight-bold ml-5">*</span></label>
+                            <input type="text" class="form-control" id="peso" name="peso">
+                        </div>
+                        <div class="form-group">
+                            <p class="text-danger externoLabel" id="examenFisicoError"></p>
+                            <label>Examen físico <span class="text-danger font-weight-bold ml-5">*</span></label>
+                            <textarea class="form-control" id="examenFisico" name="examenFisico"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <p class="text-danger externoLabel" id="impresionDiagnosticaError"></p>
+                            <label>Impresión diagnóstica <span class="text-danger font-weight-bold ml-5">*</span></label>
+                            <textarea class="form-control" id="impresionDiagnostica" name="impresionDiagnostica"></textarea>
+                        </div>
+                        <div class="form-group d-flex justify-content-center">
+                            <button type="button" onclick="registrarPaciente(2)" class="btn-lg w-100 btn-primary mt-5 p-2" id="registrarExterno" name="registrarExterno">Registrar paciente</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="container collapse" id="usuarioCEDAE">
+    <div class="row">
+        <form class="w-100 border data-form rounded p-3 mt-5" method="POST" id="CEDAEForm" name="CEDAEForm">  
+            {% csrf_token %}
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div>
+                            <p class="display-4 text-primary text-center my-2">Datos paciente</p>
+                        </div>
+                        <p class="font-weight-bold text-primary mt-3">Los campos con <span class="text-danger">*</span>
+                            son obligatorios</p>
+                            <input type="text" class="d-none" name="paciente" value ="cedae" id="pacienteCEDAE">
+                        <div class="form-group">
+                            <p class="text-danger cedaeLabel" id="curpCEDAEError"></p>
+                            <label>CURP del trabajador de la clínca CEDAE: <span class="text-danger font-weight-bold ml-5">*</span></label>
+                            <input type="text" class="form-control" id="curpCEDAE" name="curp">
+                        </div>
+                    <div class="col-md-12">
+                        <div>
+                            <p class="display-4 text-primary text-center my-4">Datos expediente</p>
+                        </div>
+                        <div class="form-group">
+                            <p class="text-danger cedaeLabel" id="alergiasCEDAEError"></p>
+                            <label>Alergias <span class="text-danger font-weight-bold ml-5">*</span></label>
+                            <textarea class="form-control" id="alergiasCEDAE" name="alergias"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <p class="text-danger cedaeLabel" id="antecedentePersonalCEDAEError"></p>
+                            <label>Antecedente personal <span class="text-danger font-weight-bold ml-5">*</span></label>
+                            <textarea class="form-control" id="antecedentePersonalCEDAE" name="antecedentePersonal"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <p class="text-danger cedaeLabel" id="antedecenteFamiliarCEDAEError"></p>
+                            <label>Antecedente familiar <span class="text-danger font-weight-bold ml-5">*</span></label>
+                            <textarea class="form-control"  id="antecedenteFamiliarCEDAE" name="antecedenteFamiliar"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <p class="text-danger cedaeLabel" id="padecimientoCEDAEError"></p>
+                            <label>Padecimiento <span class="text-danger font-weight-bold ml-5">*</span></label>
+                            <textarea class="form-control" id="padecimientoCEDAE" name="padecimiento"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <p class="text-danger cedaeLabel" id="temperaturaCEDAEError"></p>
+                            <label>Temperatura <span class="text-danger font-weight-bold ml-5">*</span></label>
+                            <input type="text" class="form-control" id="temperaturaCEDAE" name="temperatura">
+                        </div>
+                        <div class="form-group">
+                            <p class="text-danger cedaeLabel" id="frecuenciaCardiacaCEDAEError"></p>
+                            <label>Frecuencia cardiaca <span class="text-danger font-weight-bold ml-5">*</span></label>
+                            <input type="text" class="form-control" id="frecuenciaCardiacaCEDAE" name="frecuenciaCardiaca">
+                        </div>
+                        <div class="form-group">
+                            <p class="text-danger cedaeLabel" id="frecuenciaRespiratoriaCEDAEError"></p>
+                            <label>Frecuencia respiratoria <span class="text-danger font-weight-bold ml-5">*</span></label>
+                            <input type="text" class="form-control" id="frecuenciaRespiratoriaCEDAE" name="frecuenciaRespiratoria">
+                        </div>
+                        <div class="form-group">
+                            <p class="text-danger cedaeLabel" id="presionArterialCEDAEError"></p>
+                            <label>Presión arterial <span class="text-danger font-weight-bold ml-5">*</span></label>
+                            <input type="text" class="form-control" id="presionArterialCEDAE" name="presionArterial">
+                        </div>
+                        <div class="form-group">
+                            <p class="text-danger cedaeLabel" id="oxigenacionCEDAEError"></p>
+                            <label>Oxigenación <span class="text-danger font-weight-bold ml-5">*</span></label>
+                            <input type="text" class="form-control" id="oxigenacionCEDAE" name="oxigenacion">
+                        </div>
+                        <div class="form-group">
+                            <p class="text-danger cedaeLabel" id="alturaCEDAEError"></p>
+                            <label>Altura <span class="text-danger font-weight-bold ml-5">*</span></label>
+                            <input type="text" class="form-control" id="alturaCEDAE" name="altura">
+                        </div>
+                        <div class="form-group">
+                            <p class="text-danger cedaeLabel" id="pesoCEDAEError"></p>
+                            <label>Peso <span class="text-danger font-weight-bold ml-5">*</span></label>
+                            <input type="text" class="form-control" id="pesoCEDAE" name="peso">
+                        </div>
+                        <div class="form-group">
+                            <p class="text-danger cedaeLabel" id="examenFisicoCEDAEError"></p>
+                            <label>Examen físico <span class="text-danger font-weight-bold ml-5">*</span></label>
+                            <textarea class="form-control" id="examenFisicoCEDAE" name="examenFisico"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <p class="text-danger cedaeLabel" id="impresionDiagnosticaCEDAEError"></p>
+                            <label>Impresión diagnóstica <span class="text-danger font-weight-bold ml-5">*</span></label>
+                            <textarea class="form-control" id="impresionDiagnosticaCEDAE" name="impresionDiagnostica"></textarea>
+                        </div>
+                        <div class="form-group d-flex justify-content-center">
+                            <button type="button" onclick="registrarPaciente(1)" class="btn-lg w-100 btn-primary mt-5 p-2" id="registrarCEDAE" name="registrarCEDAE">Registrar paciente</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'gestion_medicos/scripts/registerPatient.js' %}"></script>
+{% endblock %}

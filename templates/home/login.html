@@ -1,0 +1,71 @@
+{% extends 'home/base.html' %}
+{% load static %}
+
+{% block title %}
+.: Iniciar sesión :.
+{% endblock title %}
+
+{% block styles %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<link rel="stylesheet" href="{% static 'home/styles/login.css'%}">
+<script src="{% static 'gestion_medicos/scripts/alertas.js' %}"></script>
+{% endblock %}
+
+
+{% block content %}
+{% if messages %}
+{% for message in messages %}
+<script>
+  message("{{message}}", "{{message.tags}}");
+</script>
+{% endfor %}
+{% endif %}
+<div class="modal-dialog text-center">
+  <div class="col-sm-8 main-section">
+    <div class="modal-content">
+      <div class="col-12 user-img">
+        <img src="{% static 'home/img/CEDAE_logo.jpeg' %}">
+      </div>
+      <form class="col-12" method="POST" id="iniciarSesionForm" name="iniciarSesionForm"> 
+        {% csrf_token %}
+        <div class="form-group" id="user-group">
+          <label for="correo" id="correoError" class="text-danger"></label>
+          <input type="email" id="correo" class="form-control border-dark rounded"
+            placeholder="Correo electrónico" name="correo" />
+        </div>
+        <div class="form-group" id="contrasena-group">
+          <label for="contrasenia" id="passError" class="text-danger"></label>
+          <input type="password" id="contrasenia" class="form-control border-dark rounded" placeholder="Contraseña" name="contrasenia"/>
+        </div>
+        <div class="form-group d-flex flex-column" id="tipo-group">
+          <span class="w-100 text-center">Selecciona tu rol</span>
+          <div class="d-flex flex-wrap">
+            <div class="col-md-6 d-flex">
+              <input type="radio" id="paciente" name="tipo" value="paciente" checked>
+              <label for="paciente" class="mt-2 ml-2">Paciente</label><br>
+            </div>
+            <div class="col-md-6 d-flex">
+              <input type="radio" id="medico" name="tipo" value="medico">
+              <label for="medico" class="mt-2 ml-2">Médico</label><br>
+            </div>
+            <div class="col-md-6 d-flex">
+              <input type="radio" id="encargado" name="tipo" value="encargado" >
+              <label for="encargado" class="mt-2 ml-2">Encargado farmacia</label><br>
+            </div>
+            <div class="col-md-6 d-flex">
+              <input type="radio" id="recepcionista" name="tipo" value="recepcionista">
+              <label for="recepcionista" class="mt-2 ml-2">Recepcionista</label><br>
+            </div>
+          </div>
+        </div>
+        <button type="button" onclick="validarCredenciales()" id="iniciarSesionbtn" class="btn btn-primary">Iniciar sesión</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'home/scripts/login.js' %}"></script>
+{% endblock %}

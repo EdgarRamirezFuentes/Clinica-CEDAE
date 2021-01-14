@@ -1,0 +1,71 @@
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.fit-cover {
+    object-fit: cover;
+    max-width: 100%;
+}
+
+ul.lista-expertos li {
+    padding: 10px;
+    float: left;
+}
+
+@media only screen and (min-width: 480px) {
+    ul.lista-expertos li {
+        width: 50%;
+    }
+}
+
+@media only screen and (min-width: 760px) {
+    ul.lista-expertos li {
+        width: 33.33%;
+    }
+}
+
+.experto {
+    position: relative;
+    overflow: hidden;
+    max-width: 100%;
+}
+
+.experto img {
+    width: 100%;
+    height: 350px !important;
+    transition: all .5s ease-in-out;
+    object-fit: fill;
+    -webkit-transition: all .5s ease-in-out;
+}
+
+.experto:hover img {
+    transform: scale(1.1);
+    -webkit-transform: scale(1.1);
+}
+
+.experto p {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding: 15px 10px;
+    margin: 0px;
+    background-color: #007bffbb;
+    width: 100%;
+    text-align: left;
+    color: #ffffff;
+    transition: all .5s ease-in-out;
+    -webkit-transition: all .5s ease-in-out;
+}
+
+.experto:hover p {
+    bottom: -90px;
+    opacity: 0;
+}
+
+
+.wide img {
+    object-fit: cover;
+    height: 426px!important;
+}

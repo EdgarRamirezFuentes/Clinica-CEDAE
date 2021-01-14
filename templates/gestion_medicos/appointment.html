@@ -1,0 +1,691 @@
+{% extends 'gestion_medicos/base.html' %}
+{% load static %}
+
+{% block title %}
+.: Cita :.
+{% endblock title %}
+
+{% block styles %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+{% endblock %}
+
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div id="accordion" class="w-100">
+            <p class="text-center text-primary display-4">Consulta</p>
+            <div class="bg-primary w-100 text-light d-flex justify-content-around py-3">
+                <p class="display-5">ID expediente: {{paciente.idUsuario.curp}}</p>
+                <p class="display-5">Nombre paciente: {{paciente.idUsuario.nombre }} {{paciente.idUsuario.apellidoPaterno }} {{paciente.idUsuario.apellidoMaterno }}</p>
+            </div>
+            <form class="w-100 border data-form rounded p-3 mt-5" method="POST" id="recetaForm" name="recetaForm">  
+                {% csrf_token %}
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        <h5 class="mb-0 text-center">
+                            <button class="btn btn-link" type="button" data-toggle="collapse"
+                                data-target="#datosExpendiente" aria-expanded="true" aria-controls="datosExpendiente">
+                                Datos del expediente
+                            </button>
+                        </h5>
+                    </div>
+                    <div id="datosExpendiente" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                        <div class="card-body">
+                            <p class="font-weight-bold text-primary">Los campos con <span class="text-danger">*</span>
+                                son obligatorios</p>
+                            <div class="form-group">
+                                <label class="text-primary" for="alergias">Alergias <span
+                                        class="text-danger font-weight-bold ml-5">*</span></label>
+                                <textarea class="form-control" id="alergias" name="alergias">{{expediente.alergias}}</textarea>
+                            </div>
+                            <div class="form-group">
+                                <label class="text-primary" for="antecedentePersonal">Antecedente personal <span
+                                        class="text-danger font-weight-bold ml-5">*</span></label>
+                                <textarea class="form-control" id="antecedentePersonal" name="antecedentePersonal">{{expediente.antecedentes_personales}}</textarea>
+                            </div>
+                            <div class="form-group">
+                                <label class="text-primary" for="antecedenteFamiliar">Antecedente familiar <span
+                                        class="text-danger font-weight-bold ml-5">*</span></label>
+                                <textarea class="form-control" id="antecedenteFamiliar" name="antecedenteFamiliar">{{expediente.antecedentes_familiares}}</textarea>
+                            </div>
+                            <div class="form-group">
+                                <label class="text-primary" for="padecimiento">Padecimiento <span
+                                        class="text-danger font-weight-bold ml-5">*</span></label>
+                                <textarea class="form-control" id="padecimiento" name="padecimiento">{{expediente.padecimiento_actual}}</textarea>
+                            </div>
+                            <div class="form-group">
+                                <label class="text-primary" for="temperatura">Temperatura <span
+                                        class="text-danger font-weight-bold ml-5">*</span></label>
+                                <input type="text" class="form-control" value = "{{expediente.temperatura}}" id="temperatura" name="temperatura">
+                            </div>
+                            <div class="form-group">
+                                <label class="text-primary" for="frecCardiaca">Frecuencia cardiaca <span
+                                        class="text-danger font-weight-bold ml-5">*</span></label>
+                                <input type="text" class="form-control" value="{{expediente.frecuencia_cardiaca}}" id="frecCardiaca" name="frecCardiaca">
+                            </div>
+                            <div class="form-group">
+                                <label class="text-primary" for="frecRespiratoria">Frecuencia respiratoria <span
+                                        class="text-danger font-weight-bold ml-5">*</span></label>
+                                <input type="textarea" class="form-control" value="{{expediente.frecuencia_respiratoria}}" id="frecRespiratoria" name="frecRespiratoria">
+                            </div>
+                            <div class="form-group">
+                                <label class="text-primary" for="presionArterial">Presión arterial <span
+                                        class="text-danger font-weight-bold ml-5">*</span></label>
+                                <input type="text" class="form-control" value="{{expediente.presion_arterial}}" id="presionArterial" name="presionArterial">
+                            </div>
+                            <div class="form-group">
+                                <label class="text-primary" for="oxigenacion">Oxigenación <span
+                                        class="text-danger font-weight-bold ml-5">*</span></label>
+                                <input type="text" class="form-control" value="{{expediente.saturacion_oxigeno}}" id="oxigenacion" name="oxigenacion">
+                            </div>
+                            <div class="form-group">
+                                <label class="text-primary" for="altura">Altura (en metros) <span
+                                        class="text-danger font-weight-bold ml-5">*</span></label>
+                                <input type="text" class="form-control" value="{{expediente.altura}}" id="altura" name="altura">
+                            </div>
+                            <div class="form-group">
+                                <label class="text-primary" for="peso">Peso<span
+                                        class="text-danger font-weight-bold ml-5">*</span></label>
+                                <input type="text" class="form-control" value="{{expediente.peso}}" id="peso" name="peso">
+                            </div>
+                            <div class="form-group">
+                                <label class="text-primary" for="examenFisico">Examen físico <span
+                                        class="text-danger font-weight-bold ml-5">*</span></label>
+                                <input type="textarea" class="form-control" value="{{expediente.examen_fisico}}" id="examenFisico" name="examenFisico">
+                            </div>
+                            <div class="form-group">
+                                <label class="text-primary" for="impresionDiagnostica">Impresión diagnóstica <span
+                                        class="text-danger font-weight-bold ml-5">*</span></label>
+                                <input type="textarea" class="form-control" value="{{expediente.impresion_diagnostica}}" id="impresionDiagnostica" name="impresionDiagnostica">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header" id="headingTwo">
+                        <h5 class="mb-0 text-center">
+                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                                data-target="#receta" aria-expanded="false" aria-controls="collapseTwo">
+                                Receta
+                            </button>
+                        </h5>
+                    </div>
+                    <div id="receta" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                        <div class="card-body">
+                            
+                                
+                                <p class="font-weight-bold text-primary mt-3">Los campos con <span
+                                    class="text-danger">*</span>
+                                son obligatorios</p>
+                            
+                                <!--<div class="form-group">
+                                    <label for="medicamento">Medicamento <span
+                                        class="text-danger font-weight-bold ml-5">*</span></label>
+                                    <select class="form-control" id="medicamento">
+                                        <option>Paracetamol 600gm</option>
+                                        <option>Omeprazol 200gm</option>
+                                        <option>Ibuprofeno 300gm</option>
+                                        <option>Ibuprofeno 600gm</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="indicaciones">Indicaciones <span
+                                            class="text-danger font-weight-bold ml-4">*</span></label>
+                                    <textarea class="form-control" id="indicaciones"></textarea>
+                                </div>-->
+                                <div id="newDrug">
+                                </div>
+                                <div class="form-group">      
+                                    <button type="button" onclick="agregarMedicamento(1)" class="btn btn-success w-80 mt-2">Agregar medicamento</button>
+                                    <button type="button" onclick="eliminarMedicamento()" class="btn btn-danger w-80 mt-2">Eliminar medicamento</button>
+                                    <div class="my-3 d-flex">
+                                        <div class="input-group mb-3 col-md-4 h-100">
+                                            <div class="input-group-text">
+                                                <input type="checkbox" id="enviarCorreo" name="enviarCorreo">
+                                            </div>
+                                            <label class="form-control w-25 text-primary text-center">¿Enviar receta por correo electrónico?</label>
+                                        </div>
+                                        <div class="col-md-8 d-flex">
+                                            <label class="form-control w-25 text-primary text-center" for="correoElec">Correo electrónico</label>
+                                            <input type="email" class="form-control w-75" id="correoElec"
+                                                placeholder="Ingrese correo electrónico" name="correoElec">
+                                        </div>
+                                    </div>  
+                                </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header" id="headingThree">
+                        <h5 class="mb-0 text-center">
+                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                                data-target="#diagramaCorporal" aria-expanded="false" aria-controls="collapseThree">
+                                Diagrama corporal
+                            </button>
+                        </h5>
+                    </div>
+                    <div id="diagramaCorporal" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                        <div class="card-body">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-9">
+                                        <p class="text-center text-primary">Selecciona las partes afectadas</p>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <p class="text-center text-primary">Parte frontal</p>
+                                                <div id="accordion">
+                                                    <div class="card">
+                                                        <div class="card-header" id="headingFour">
+                                                            <h5 class="mb-0 text-center">
+                                                                <button type="button" class="btn btn-link"
+                                                                    data-toggle="collapse" data-target="#collapseFour"
+                                                                    aria-expanded="true" aria-controls="collapseFour"
+                                                                    data-parent="#diagramaCorporal">
+                                                                    Parte superior
+                                                                </button>
+                                                            </h5>
+                                                        </div>
+
+                                                        <div id="collapseFour" class="collapse show"
+                                                            aria-labelledby="headingFour" data-parent="#accordion">
+                                                            <div class="card-body">
+                                                                <div class="input-group mb-3">
+                                                                    <div class="input-group-prepend">
+                                                                        <div class="input-group-text">
+                                                                            <input type="checkbox"
+                                                                                aria-label="Checkbox for región ocular" id="regionOcular">
+                                                                        </div>
+                                                                    </div>
+                                                                    <span class="form-control text-primary">Región
+                                                                        ocular</span>
+                                                                </div>
+                                                                <div class="input-group mb-3">
+                                                                    <div class="input-group-prepend">
+                                                                        <div class="input-group-text">
+                                                                            <input type="checkbox"
+                                                                                aria-label="Checkbox for following text input" id="regionAuricular">
+                                                                        </div>
+                                                                    </div>
+                                                                    <span class="form-control text-primary">Región
+                                                                        auricular</span>
+                                                                </div>
+                                                                <div class="input-group mb-3">
+                                                                    <div class="input-group-prepend">
+                                                                        <div class="input-group-text">
+                                                                            <input type="checkbox"
+                                                                                aria-label="Checkbox for following text input" id="regionNasal">
+                                                                        </div>
+                                                                    </div>
+                                                                    <span class="form-control text-primary">Región
+                                                                        nasal</span>
+                                                                </div>
+                                                                <div class="input-group mb-3">
+                                                                    <div class="input-group-prepend">
+                                                                        <div class="input-group-text">
+                                                                            <input type="checkbox"
+                                                                                aria-label="Checkbox for following text input" id="regionBucal">
+                                                                        </div>
+                                                                    </div>
+                                                                    <span class="form-control text-primary">Región
+                                                                        bucal</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card">
+                                                        <div class="card-header" id="headingFive">
+                                                            <h5 class="mb-0 text-center">
+                                                                <button type="button" class="btn btn-link collapsed"
+                                                                    data-toggle="collapse" data-target="#collapseFive"
+                                                                    aria-expanded="false" aria-controls="collapseFive"
+                                                                    data-parent="#diagramaCorporal">
+                                                                    Tronco
+                                                                </button>
+                                                            </h5>
+                                                        </div>
+                                                        <div id="collapseFive" class="collapse"
+                                                            aria-labelledby="headingFive" data-parent="#accordion">
+                                                            <div class="card-body">
+                                                                <div class="card-body">
+                                                                    <div class="input-group mb-3">
+                                                                        <div class="input-group-prepend">
+                                                                            <div class="input-group-text">
+                                                                                <input type="checkbox"
+                                                                                    aria-label="Checkbox for following text input" id="cuello"> 
+                                                                            </div>
+                                                                        </div>
+                                                                        <span
+                                                                            class="form-control text-primary">Cuello</span>
+                                                                    </div>
+                                                                    <div class="input-group mb-3">
+                                                                        <div class="input-group-prepend">
+                                                                            <div class="input-group-text">
+                                                                                <input type="checkbox"
+                                                                                    aria-label="Checkbox for following text input" id="pecho"> 
+                                                                            </div>
+                                                                        </div>
+                                                                        <span
+                                                                            class="form-control text-primary">Pecho</span>
+                                                                    </div>
+                                                                    <div class="input-group mb-3">
+                                                                        <div class="input-group-prepend">
+                                                                            <div class="input-group-text">
+                                                                                <input type="checkbox"
+                                                                                    aria-label="Checkbox for following text input" id="hombros">
+                                                                            </div>
+                                                                        </div>
+                                                                        <span
+                                                                            class="form-control text-primary">Hombros</span>
+                                                                    </div>
+                                                                    <div class="input-group mb-3">
+                                                                        <div class="input-group-prepend">
+                                                                            <div class="input-group-text">
+                                                                                <input type="checkbox"
+                                                                                    aria-label="Checkbox for following text input" id="claviculas">
+                                                                            </div>
+                                                                        </div>
+                                                                        <span
+                                                                            class="form-control text-primary">Clavículas</span>
+                                                                    </div>
+                                                                    <div class="input-group mb-3">
+                                                                        <div class="input-group-prepend">
+                                                                            <div class="input-group-text">
+                                                                                <input type="checkbox"
+                                                                                    aria-label="Checkbox for following text input" id="abdomen">
+                                                                            </div>
+                                                                        </div>
+                                                                        <span
+                                                                            class="form-control text-primary">Abdómen</span>
+                                                                    </div>
+                                                                    <div class="input-group mb-3">
+                                                                        <div class="input-group-prepend">
+                                                                            <div class="input-group-text">
+                                                                                <input type="checkbox"
+                                                                                    aria-label="Checkbox for following text input" id="brazos">
+                                                                            </div>
+                                                                        </div>
+                                                                        <span
+                                                                            class="form-control text-primary">Brazos</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card">
+                                                        <div class="card-header" id="headingSix">
+                                                            <h5 class="mb-0 text-center">
+                                                                <button type="button" class="btn btn-link collapsed"
+                                                                    data-toggle="collapse" data-target="#collapseSix"
+                                                                    aria-expanded="false" aria-controls="collapseSix"
+                                                                    data-parent="#diagramaCorporal">
+                                                                    Parte inferior
+                                                                </button>
+                                                            </h5>
+                                                        </div>
+                                                        <div id="collapseSix" class="collapse"
+                                                            aria-labelledby="headingSix" data-parent="#accordion">
+                                                            <div class="card-body">
+                                                                <div class="input-group mb-3">
+                                                                    <div class="input-group-prepend">
+                                                                        <div class="input-group-text">
+                                                                            <input type="checkbox"
+                                                                                aria-label="Checkbox for following text input" id="musloIzquierdo">
+                                                                        </div>
+                                                                    </div>
+                                                                    <span class="form-control text-primary">Muslo izquierdo</span>
+                                                                </div>
+                                                                <div class="input-group mb-3">
+                                                                    <div class="input-group-prepend">
+                                                                        <div class="input-group-text">
+                                                                            <input type="checkbox"
+                                                                                aria-label="Checkbox for following text input" id="musloDerecho">
+                                                                        </div>
+                                                                    </div>
+                                                                    <span class="form-control text-primary">Muslo derecho</span>
+                                                                </div>
+                                                                <div class="input-group mb-3">
+                                                                    <div class="input-group-prepend">
+                                                                        <div class="input-group-text">
+                                                                            <input type="checkbox"
+                                                                                aria-label="Checkbox for following text input" id="rodillaIzquierda">
+                                                                        </div>
+                                                                    </div>
+                                                                    <span class="form-control text-primary">Rodilla
+                                                                        izquierda</span>
+                                                                </div>
+                                                                <div class="input-group mb-3">
+                                                                    <div class="input-group-prepend">
+                                                                        <div class="input-group-text">
+                                                                            <input type="checkbox"
+                                                                                aria-label="Checkbox for following text input" id="rodillaDerecha">
+                                                                        </div>
+                                                                    </div>
+                                                                    <span class="form-control text-primary">Rodilla
+                                                                        derecha</span>
+                                                                </div>
+                                                                <div class="input-group mb-3">
+                                                                    <div class="input-group-prepend">
+                                                                        <div class="input-group-text">
+                                                                            <input type="checkbox"
+                                                                                aria-label="Checkbox for following text input" id="espinillaIzquierda">
+                                                                        </div>
+                                                                    </div>
+                                                                    <span class="form-control text-primary">Espinilla izquierda</span>
+                                                                </div>
+                                                                <div class="input-group mb-3">
+                                                                    <div class="input-group-prepend">
+                                                                        <div class="input-group-text">
+                                                                            <input type="checkbox"
+                                                                                aria-label="Checkbox for following text input" id="espinillaDerecha">
+                                                                        </div>
+                                                                    </div>
+                                                                    <span class="form-control text-primary">Espinilla derecha</span>
+                                                                </div>
+                                                                <div class="input-group mb-3">
+                                                                    <div class="input-group-prepend">
+                                                                        <div class="input-group-text">
+                                                                            <input type="checkbox"
+                                                                                aria-label="Checkbox for following text input" id="pieIzquierdo">
+                                                                        </div>
+                                                                    </div>
+                                                                    <span class="form-control text-primary">Pie
+                                                                        izquierdo</span>
+                                                                </div>
+                                                                <div class="input-group mb-3">
+                                                                    <div class="input-group-prepend">
+                                                                        <div class="input-group-text">
+                                                                            <input type="checkbox"
+                                                                                aria-label="Checkbox for following text input" id="pieDerecho">
+                                                                        </div>
+                                                                    </div>
+                                                                    <span class="form-control text-primary">Pie
+                                                                        derecho</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p class="text-center text-primary">Parte trasera</p>
+                                                <div id="accordion">
+                                                    <div class="card">
+                                                        <div class="card-header" id="headingSeven">
+                                                            <h5 class="mb-0 text-center">
+                                                                <button type="button" class="btn btn-link"
+                                                                    data-toggle="collapse" data-target="#collapseSeven"
+                                                                    aria-expanded="true" aria-controls="collapseSeven"
+                                                                    data-parent="#diagramaCorporal">
+                                                                    Parte superior
+                                                                </button>
+                                                            </h5>
+                                                        </div>
+                                                        <div id="collapseSeven" class="collapse show"
+                                                            aria-labelledby="headingSeven" data-parent="#accordion">
+                                                            <div class="card-body">
+                                                                <div class="input-group mb-3">
+                                                                    <div class="input-group-prepend">
+                                                                        <div class="input-group-text">
+                                                                            <input type="checkbox"
+                                                                                aria-label="Checkbox for following text input" id="coronilla">
+                                                                        </div>
+                                                                    </div>
+                                                                    <span class="form-control text-primary">Coronilla</span>
+                                                                </div>
+                                                                <div class="input-group mb-3">
+                                                                    <div class="input-group-prepend">
+                                                                        <div class="input-group-text">
+                                                                            <input type="checkbox"
+                                                                                aria-label="Checkbox for following text input" id="nuca">
+                                                                        </div>
+                                                                    </div>
+                                                                    <span class="form-control text-primary">Nuca</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card">
+                                                        <div class="card-header" id="headingEight">
+                                                            <h5 class="mb-0 text-center">
+                                                                <button type="button" class="btn btn-link collapsed"
+                                                                    data-toggle="collapse" data-target="#collapseEight"
+                                                                    aria-expanded="false" aria-controls="collapseEight"
+                                                                    data-parent="#diagramaCorporal">
+                                                                    Tronco
+                                                                </button>
+                                                            </h5>
+                                                        </div>
+                                                        <div id="collapseEight" class="collapse"
+                                                            aria-labelledby="headingEight" data-parent="#accordion">
+                                                            <div class="card-body">
+                                                                <div class="card-body">
+                                                                    <div class="input-group mb-3">
+                                                                        <div class="input-group-prepend">
+                                                                            <div class="input-group-text">
+                                                                                <input type="checkbox"
+                                                                                    aria-label="Checkbox for following text input" id="regionCervical">
+                                                                            </div>
+                                                                        </div>
+                                                                        <span
+                                                                            class="form-control text-primary">Región cervical</span>
+                                                                    </div>
+                                                                    <div class="input-group mb-3">
+                                                                        <div class="input-group-prepend">
+                                                                            <div class="input-group-text">
+                                                                                <input type="checkbox"
+                                                                                    aria-label="Checkbox for following text input" id="regionToracica">
+                                                                            </div>
+                                                                        </div>
+                                                                        <span
+                                                                            class="form-control text-primary">Región torácica</span>
+                                                                    </div>
+                                                                    <div class="input-group mb-3">
+                                                                        <div class="input-group-prepend">
+                                                                            <div class="input-group-text">
+                                                                                <input type="checkbox"
+                                                                                    aria-label="Checkbox for following text input" id="regionLumbar">
+                                                                            </div>
+                                                                        </div>
+                                                                        <span
+                                                                            class="form-control text-primary">Región lumbar</span>
+                                                                    </div>
+                                                                    <div class="input-group mb-3">
+                                                                        <div class="input-group-prepend">
+                                                                            <div class="input-group-text">
+                                                                                <input type="checkbox"
+                                                                                    aria-label="Checkbox for following text input" id="hombroIzquierdoPosterior">
+                                                                            </div>
+                                                                        </div>
+                                                                        <span
+                                                                            class="form-control text-primary">Hombro izquierdo posterior</span>
+                                                                    </div>
+                                                                    <div class="input-group mb-3">
+                                                                        <div class="input-group-prepend">
+                                                                            <div class="input-group-text">
+                                                                                <input type="checkbox"
+                                                                                    aria-label="Checkbox for following text input" id="hombroDerechoPosterior">
+                                                                            </div>
+                                                                        </div>
+                                                                        <span
+                                                                            class="form-control text-primary">Hombro derecho posterior</span>
+                                                                    </div>
+                                                                    <div class="input-group mb-3">
+                                                                        <div class="input-group-prepend">
+                                                                            <div class="input-group-text">
+                                                                                <input type="checkbox"
+                                                                                    aria-label="Checkbox for following text input" id="brazoIzquierdoPosterior">
+                                                                            </div>
+                                                                        </div>
+                                                                        <span
+                                                                            class="form-control text-primary">Brazo izquierdo posterior</span>
+                                                                    </div>
+                                                                    <div class="input-group mb-3">
+                                                                        <div class="input-group-prepend">
+                                                                            <div class="input-group-text">
+                                                                                <input type="checkbox"
+                                                                                    aria-label="Checkbox for following text input" id="brazoDerechoPosterior">
+                                                                            </div>
+                                                                        </div>
+                                                                        <span
+                                                                            class="form-control text-primary">Brazo derecho posterior</span>
+                                                                    </div>
+                                                                    <div class="input-group mb-3">
+                                                                        <div class="input-group-prepend">
+                                                                            <div class="input-group-text">
+                                                                                <input type="checkbox"
+                                                                                    aria-label="Checkbox for following text input" id="antebrazoIzquierdoPosterior">
+                                                                            </div>
+                                                                        </div>
+                                                                        <span
+                                                                            class="form-control text-primary">Antebrazo izquierdo posterior</span>
+                                                                    </div>
+                                                                    <div class="input-group mb-3">
+                                                                        <div class="input-group-prepend">
+                                                                            <div class="input-group-text">
+                                                                                <input type="checkbox"
+                                                                                    aria-label="Checkbox for following text input" id="antebrazoDerechoPosterior">
+                                                                            </div>
+                                                                        </div>
+                                                                        <span
+                                                                            class="form-control text-primary">Antebrazo derecho posterior</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card">
+                                                        <div class="card-header" id="headingNine">
+                                                            <h5 class="mb-0 text-center">
+                                                                <button type="button" class="btn btn-link collapsed"
+                                                                    data-toggle="collapse" data-target="#collapseNine"
+                                                                    aria-expanded="false" aria-controls="collapseNine"
+                                                                    data-parent="#diagramaCorporal">
+                                                                    Parte inferior
+                                                                </button>
+                                                            </h5>
+                                                        </div>
+                                                        <div id="collapseNine" class="collapse"
+                                                            aria-labelledby="headingNine" data-parent="#accordion">
+                                                            <div class="card-body">
+                                                                <div class="input-group mb-3">
+                                                                    <div class="input-group-prepend">
+                                                                        <div class="input-group-text">
+                                                                            <input type="checkbox"
+                                                                                aria-label="Checkbox for following text input" id="gluteoIzquierdo">
+                                                                        </div>
+                                                                    </div>
+                                                                    <span class="form-control text-primary">Gluteo izquierdo</span>
+                                                                </div>
+                                                                <div class="input-group mb-3">
+                                                                    <div class="input-group-prepend">
+                                                                        <div class="input-group-text">
+                                                                            <input type="checkbox"
+                                                                                aria-label="Checkbox for following text input" id="gluteoDerecho"> 
+                                                                        </div>
+                                                                    </div>
+                                                                    <span class="form-control text-primary">Gluteo derecho</span>
+                                                                </div>
+                                                                <div class="input-group mb-3">
+                                                                    <div class="input-group-prepend">
+                                                                        <div class="input-group-text">
+                                                                            <input type="checkbox"
+                                                                                aria-label="Checkbox for following text input" id="MusloIzquierdoPosterior">
+                                                                        </div>
+                                                                    </div>
+                                                                    <span class="form-control text-primary">Muslo izquierdo posterior</span>
+                                                                </div>
+                                                                <div class="input-group mb-3">
+                                                                    <div class="input-group-prepend">
+                                                                        <div class="input-group-text">
+                                                                            <input type="checkbox"
+                                                                                aria-label="Checkbox for following text input" id="musloDerechoPosterior">
+                                                                        </div>
+                                                                    </div>
+                                                                    <span class="form-control text-primary">Muslo derecho posterior</span>
+                                                                </div>
+                                                                <div class="input-group mb-3">
+                                                                    <div class="input-group-prepend">
+                                                                        <div class="input-group-text">
+                                                                            <input type="checkbox"
+                                                                                aria-label="Checkbox for following text input" id="pantorrillaIzquierda">
+                                                                        </div>
+                                                                    </div>
+                                                                    <span class="form-control text-primary">Pantorrilla izquierda</span>
+                                                                </div>
+                                                                <div class="input-group mb-3">
+                                                                    <div class="input-group-prepend">
+                                                                        <div class="input-group-text">
+                                                                            <input type="checkbox"
+                                                                                aria-label="Checkbox for following text input" id="pantorrillaDerecha">
+                                                                        </div>
+                                                                    </div>
+                                                                    <span class="form-control text-primary">Pantorrilla derecha</span>
+                                                                </div>
+                                                                <div class="input-group mb-3">
+                                                                    <div class="input-group-prepend">
+                                                                        <div class="input-group-text">
+                                                                            <input type="checkbox"
+                                                                                aria-label="Checkbox for following text input" id="tobilloIzquierdo">
+                                                                        </div>
+                                                                    </div>
+                                                                    <span class="form-control text-primary">Tobillo izquierdo</span>
+                                                                </div>
+                                                                <div class="input-group mb-3">
+                                                                    <div class="input-group-prepend">
+                                                                        <div class="input-group-text">
+                                                                            <input type="checkbox"
+                                                                                aria-label="Checkbox for following text input" id="tobilloDerecho">
+                                                                        </div>
+                                                                    </div>
+                                                                    <span class="form-control text-primary">Tobillo derecho</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 align-items-center d-flex">
+                                        <img src="{% static 'gestion_medicos/img/diagrama_corporal_prueba.jpeg'%}"
+                                            class="image-fluid" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header" id="headingTen">
+                        <h5 class="mb-0 text-center">
+                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                                data-target="#nota" aria-expanded="false" aria-controls="collapseTen">
+                                Nota
+                            </button>
+                        </h5>
+                    </div>
+                    <div id="nota" class="collapse" aria-labelledby="headingTen" data-parent="#accordion">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label class="text-primary" for="nota">Nota</label>
+                                <textarea type="textarea" class="form-control" id="nota"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button type="button" onclick="registrarReceta()" class="btn btn-primary w-100 mt-5">Finalizar
+                    consulta</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock%}
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script src="{% static 'gestion_medicos/scripts/appointment.js' %}"></script>
+<script src="{% static 'gestion_medicos/scripts/prescription.js' %}"></script>
+{% endblock %}

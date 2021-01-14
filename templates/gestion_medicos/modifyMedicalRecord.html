@@ -1,0 +1,121 @@
+{% extends 'gestion_medicos/base.html' %}
+{% load static %}
+
+{% block title %}
+.: Modificar expediente :.
+{% endblock title %}
+
+{% block styles %}
+<script src="{% static 'gestion_medicos/scripts/alertas.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+{% endblock styles %}
+
+
+{% block content %}
+    {% if messages %}
+        {% for message in messages %}
+            <script>message("{{message}}", "{{message.tags}}");</script>  
+        {% endfor %}
+    {% endif %}
+    <div class="container" id="modificarExpediente" name="modificarExpediente">
+        <div class="row">
+            <p class="w-100 display-4 text-center text-primary mt-5">Modificar expediente</p>
+            <form class="w-100 border data-form rounded p-3 mt-3" method="POST" id="modificarExpedienteForm" name="modificarExpedienteForm">  
+                {% csrf_token %}
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div>
+                                <p class="display-4 text-primary text-center my-2">Datos paciente</p>
+                            </div>
+                            <div class="form-group">
+                                <p class="text-danger cedaeLabel" id="curpCEDAEError"></p>
+                                <label class="w-100 text-center h4">CURP paciente: {{paciente.idUsuario.curp}} </label>
+                                <label class="w-100 text-center h4">Nombre: {{paciente.idUsuario.apellidoPaterno}} {{paciente.idUsuario.apellidoMaterno}} {{paciente.idUsuario.nombre}}</label>
+                            </div>
+                        <div class="col-md-12">
+                            <div>
+                                <p class="display-4 text-primary text-center my-4">Datos expediente</p>
+                            </div>
+                            <p class="font-weight-bold text-primary mt-3">Los campos con <span class="text-danger">*</span> son obligatorios</p>
+                            <div class="form-group">
+                                <p class="text-danger cedaeLabel" id="alergiasCEDAEError"></p>
+                                <label>Alergias <span class="text-danger font-weight-bold ml-5">*</span></label>
+                                <textarea class="form-control" id="alergiasCEDAE" name="alergias">{{expediente.alergias}}</textarea>
+                            </div>
+                            <div class="form-group">
+                                <p class="text-danger cedaeLabel" id="antecedentePersonalCEDAEError"></p>
+                                <label>Antecedente personal <span class="text-danger font-weight-bold ml-5">*</span></label>
+                                <textarea class="form-control" id="antecedentePersonalCEDAE" name="antecedentePersonal">{{expediente.antecedentes_personales}}</textarea>
+                            </div>
+                            <div class="form-group">
+                                <p class="text-danger cedaeLabel" id="antedecenteFamiliarCEDAEError"></p>
+                                <label>Antecedente familiar <span class="text-danger font-weight-bold ml-5">*</span></label>
+                                <textarea class="form-control"  id="antecedenteFamiliarCEDAE" name="antecedenteFamiliar">{{expediente.antecedentes_familiares}}</textarea>
+                            </div>
+                            <div class="form-group">
+                                <p class="text-danger cedaeLabel" id="padecimientoCEDAEError"></p>
+                                <label>Padecimiento <span class="text-danger font-weight-bold ml-5">*</span></label>
+                                <textarea class="form-control" id="padecimientoCEDAE" name="padecimiento">{{expediente.padecimiento_actual}}</textarea>
+                            </div>
+                            <div class="form-group">
+                                <p class="text-danger cedaeLabel" id="temperaturaCEDAEError"></p>
+                                <label>Temperatura <span class="text-danger font-weight-bold ml-5">*</span></label>
+                                <input type="text" class="form-control" id="temperaturaCEDAE" name="temperatura" value="{{expediente.temperatura}}">
+                            </div>
+                            <div class="form-group">
+                                <p class="text-danger cedaeLabel" id="frecuenciaCardiacaCEDAEError"></p>
+                                <label>Frecuencia cardiaca <span class="text-danger font-weight-bold ml-5">*</span></label>
+                                <input type="text" class="form-control" id="frecuenciaCardiacaCEDAE" name="frecuenciaCardiaca" value="{{expediente.frecuencia_cardiaca}}">
+                            </div>
+                            <div class="form-group">
+                                <p class="text-danger cedaeLabel" id="frecuenciaRespiratoriaCEDAEError"></p>
+                                <label>Frecuencia respiratoria <span class="text-danger font-weight-bold ml-5">*</span></label>
+                                <input type="text" class="form-control" id="frecuenciaRespiratoriaCEDAE" name="frecuenciaRespiratoria" value="{{expediente.frecuencia_respiratoria}}">
+                            </div>
+                            <div class="form-group">
+                                <p class="text-danger cedaeLabel" id="presionArterialCEDAEError"></p>
+                                <label>Presión arterial <span class="text-danger font-weight-bold ml-5">*</span></label>
+                                <input type="text" class="form-control" id="presionArterialCEDAE" name="presionArterial" value="{{expediente.presion_arterial}}">
+                            </div>
+                            <div class="form-group">
+                                <p class="text-danger cedaeLabel" id="oxigenacionCEDAEError"></p>
+                                <label>Oxigenación <span class="text-danger font-weight-bold ml-5">*</span></label>
+                                <input type="text" class="form-control" id="oxigenacionCEDAE" name="oxigenacion" value="{{expediente.saturacion_oxigeno}}">
+                            </div>
+                            <div class="form-group">
+                                <p class="text-danger cedaeLabel" id="alturaCEDAEError"></p>
+                                <label>Altura <span class="text-danger font-weight-bold ml-5">*</span></label>
+                                <input type="text" class="form-control" id="alturaCEDAE" name="altura" value="{{expediente.altura}}">
+                            </div>
+                            <div class="form-group">
+                                <p class="text-danger cedaeLabel" id="pesoCEDAEError"></p>
+                                <label>Peso <span class="text-danger font-weight-bold ml-5">*</span></label>
+                                <input type="text" class="form-control" id="pesoCEDAE" name="peso" value="{{expediente.peso}}">
+                            </div>
+                            <div class="form-group">
+                                <p class="text-danger cedaeLabel" id="examenFisicoCEDAEError"></p>
+                                <label>Examen físico <span class="text-danger font-weight-bold ml-5">*</span></label>
+                                <textarea class="form-control" id="examenFisicoCEDAE" name="examenFisico">{{expediente.examen_fisico}}</textarea>
+                            </div>
+                            <div class="form-group">
+                                <p class="text-danger cedaeLabel" id="impresionDiagnosticaCEDAEError"></p>
+                                <label>Impresión diagnóstica <span class="text-danger font-weight-bold ml-5">*</span></label>
+                                <textarea class="form-control" id="impresionDiagnosticaCEDAE" name="impresionDiagnostica">{{expediente.impresion_diagnostica}}</textarea>
+                            </div>
+                            <div class="form-group d-flex mt-5 flex-column justify-content-center">
+                                <button type="button" onclick="modificar()" class="btn w-100 btn-primary mt-5 p-2" id="modificarExpediente" name="modificarExpediente">Modificar expediente</button>
+                                <a class="btn w-100 btn-danger mt-5 p-2 text-center" href="{% url 'medicalRecordMedico' expediente.paciente_curp.idUsuario.curp %}">Regresar al expediente</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+{% block scripts %}
+    <script src="{% static 'gestion_medicos/scripts/modifyMedicalRecord.js' %}"></script>
+{% endblock scripts %}
+    

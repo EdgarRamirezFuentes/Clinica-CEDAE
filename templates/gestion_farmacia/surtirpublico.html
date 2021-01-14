@@ -1,0 +1,132 @@
+{% extends 'gestion_farmacia/base.html' %}
+{% load static %}
+{% block title %}
+.: Surtir Publico :.        
+{% endblock title %}
+{% block styles %}
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="container-fluid">
+        <p class="display-4 text-primary text-center my-4">Surtir Receta Publico</p>
+      </div>
+        <div class="mb-3">
+        <label for="exampleFormControlTextarea1" class="form-label">Agregar medicamento a la lista</label>
+        <div class="input-group">
+            <form class="row g-2">
+            <div class="col-sm-9">  
+          <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Escriba el medicamento a añadir aqui...">  
+          <datalist id="datalistOptions">
+            <option value="Paracetamol">
+            <option value="Naproxeno">
+            <option value="Aspirina">
+            <option value="Raidolito">
+            <option value="Genoprazol">
+          </datalist> 
+        </div>
+          <button class="btn btn-primary" type="button">Agregar a la Lista</button>
+        </form>
+          </div>
+      </div>
+      <label for="exampleFormControlTextarea1" class="form-label">Lista de Medicamentos</label>
+      <div class="mb-3">
+        <table class="table">
+  <thead>
+    <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Lote</th>
+        <th scope="col">Contenido</th>
+        <th scope="col">Cantidad</th>
+        <th scope="col">Precio</th>
+        <th scope="col">Acciones</th>
+    </tr>
+</thead>
+<tbody>
+  <tr>
+    <th scope="row">PAR123</th>
+    <td>Paracetamol</td>
+    <td>12345</td>
+    <td>500 mg</td>
+    <td> 
+        <div class="input-group">
+            <span class="input-group-btn">
+                <button type="button" class="quantity-left-minus btn btn-danger btn-number"  data-type="minus" data-field="">
+                    <span class="glyphicon glyphicon-minus"></span>
+                </button>
+            </span>
+            <input type="text" id="quantity" name="quantity" class="form-control input-number"  value="1" min="1" max="100">
+            <span class="input-group-btn">
+                <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus" data-field="">
+                    <span class="glyphicon glyphicon-plus"></span>
+                </button>
+            </span>
+        </div>
+    </td>
+    <td>$80</td>
+    <td><button class="btn btn-danger" type="button">Eliminar</button></td>
+  </tr>
+  <tr>
+    <th scope="row">MAR123</th>
+    <td>Marihuanol</td>
+    <td>12345</td>
+    <td>600 mg</td>
+    <td>
+        <div class="input-group">
+            <span class="input-group-btn">
+                <button type="button" class="quantity-left-minus btn btn-danger btn-number"  data-type="minus" data-field="">
+                    <span class="glyphicon glyphicon-minus"></span>
+                </button>
+            </span>
+            <input type="text" id="quantity" name="quantity" class="form-control input-number"  value="1" min="1" max="100">
+            <span class="input-group-btn">
+                <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus" data-field="">
+                    <span class="glyphicon glyphicon-plus"></span>
+                </button>
+            </span>
+        </div>
+    </td>
+    <td>$20</td>
+    <td><button class="btn btn-danger" type="button">Eliminar</button></td>
+  </tr>
+  <tr>
+    <th scope="row">VAP123</th>
+    <td>Vaporub</td>
+    <td>12345</td>
+    <td>60 g</td>
+    <td>
+        <div class="input-group">
+            <span class="input-group-btn">
+                <button type="button" class="quantity-left-minus btn btn-danger btn-number"  data-type="minus" data-field="">
+                    <span class="glyphicon glyphicon-minus"></span>
+                </button>
+            </span>
+            <input type="text" id="quantity" name="quantity" class="form-control input-number"  value="1" min="1" max="100">
+            <span class="input-group-btn">
+                <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus" data-field="">
+                    <span class="glyphicon glyphicon-plus"></span>
+                </button>
+            </span>
+        </div>
+    </td>
+    <td>$40</td>
+    <td><button class="btn btn-danger" type="button">Eliminar</button></td>
+  </tr>
+</tbody>
+</table>
+<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+<button class="btn btn-danger btn-lg" type="button">Borrar Lista</button>
+<a href="{% url 'ticket'%}">
+    <button class="btn btn-success btn-lg" type="button">Generar Ticket</button>
+</a>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="{% static 'gestion_farmacia/scripts/surtircedae.js'%}"></script>
+{% endblock %}s

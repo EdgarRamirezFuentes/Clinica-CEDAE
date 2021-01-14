@@ -1,0 +1,30 @@
+{% extends 'gestion_medicos/base.html' %}
+{% load static %}
+
+{% block title %}
+.: Calendario :.
+{% endblock title %}
+
+{% block styles %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/fullcalendar@5.4.0/main.min.css,npm/fullcalendar@5.4.0/main.min.css">
+{% endblock%}
+
+{% block content %}
+{% if True %}
+    <script>
+        let citas = JSON.parse("{{citas}}");
+        console.log(citas);
+    </script>  
+{% endif %}
+<div class="container">
+    <div class="row flex-column ">
+        <p class="text-center display-4 text-primary mt-5">Mi calendario</p>
+        <div id="calendar"></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/combine/npm/fullcalendar@5.4.0,npm/fullcalendar@5.4.0/main.min.js,npm/fullcalendar@5.4.0/locales-all.min.js,npm/fullcalendar@5.4.0/locales-all.min.js"></script>
+<script src="{% static 'gestion_medicos/scripts/calendar.js'%}"></script>
+{% endblock %}
