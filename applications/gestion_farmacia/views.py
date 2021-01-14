@@ -44,8 +44,9 @@ class agregarmedicamento(TemplateView):
 
     def post(self, request, *args, **kwargs):
         if request.method == 'POST':
+            med = Medicamento.objects.get(pk = self.kwargs.get('pk'))
             medicamento = Medicamento(
-                sku = request.POST['sku'],
+                sku = med,
                 nombre = request.POST['nombre'],
                 sustancia_activa = request.POST['sustancia_activa'],
                 presentacion = request.POST['presentacion'],
@@ -58,10 +59,30 @@ class agregarmedicamento(TemplateView):
                 messages.success(request, 'Medicamento agregado correctamente')
             except Exception as ex:
                 messages.error(request, 'Hubo un error al intentar agregar el medicamento')
-        return redirect('/farmacia/inventario/')
+        return redirect('inventario')
 
-class modmedicamento(TemplateView):
+class modmedicamento(DetailView):
     template_name = 'gestion_farmacia/modmedicamento.html'
+    model = Medicamento
+    context_object_name = 'medicamento'
+
+    def post(self, request, *args, **kwargs):
+        if request.method == 'POST':
+            medicamento = Medicamento(
+                sku = request.POST['sku'],
+                nombre = request.POST['nombre'],
+                sustancia_activa = request.POST['sustancia_activa'],
+                presentacion = request.POST['presentacion'],
+                precio = float(request.POST['precio']),
+                cantidad = int(request.POST['cantidad']),
+                fecha_caducidad = request.POST['fecha_caducidad'],
+                )
+            try:
+                medicamento.save()
+                messages.success(request, 'Medicamento modificado correctamente')
+            except Exception as ex:
+                messages.error(request, 'Hubo un error al intentar modificar el medicamento')
+        return redirect('inventario')
 
 class ticket(TemplateView):
     template_name = 'gestion_farmacia/ticket.html'
