@@ -8,7 +8,7 @@ function registrarmedicamento() {
         cancelButtonColor: '#ff4d4d',
     }) .then((result) => {
         if (result.isConfirmed) {
-            Swal.fire("Paciente registrado con éxito", '', 'success');
+            document.getElementById("addDrugForm").submit();
         }
     });
 }

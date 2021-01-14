@@ -4,3 +4,12 @@ from django.db import models
 
 class Encargado_farmacia(models.Model):
     empleado_id = models.ForeignKey('gestion_empleados.Empleado', primary_key=True, on_delete=models.CASCADE)
+
+class Medicamento(models.Model):
+    sku = models.CharField(max_length=50, primary_key=True)
+    nombre = models.CharField(max_length=50)
+    sustancia_activa = models.CharField(max_length=50)
+    presentacion = models.CharField(max_length=30)
+    precio = models.FloatField(default=0)
+    cantidad = models.IntegerField(default=0)
+    fecha_caducidad = models.DateField()

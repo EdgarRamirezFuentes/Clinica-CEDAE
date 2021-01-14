@@ -28,177 +28,47 @@
                             <div class="col-2 d-flex align-items-center">
                                 <span>ID Medicamentos</span>
                             </div>
-                            <div class="col-2 d-flex align-items-right">
-                                <span>Lote</span>
-                            </div>
                             <div class="col-2 d-flex align-items-center">
                                 <span>Nombre del medicamento</span>
                             </div>
                             <div class="col-2 d-flex align-items-center">
-                                <span>Gramaje</span>
+                                <span>Precio</span>
                             </div>
                             <div class="col-2 d-flex align-items-center">
                                 <span>Unidades</span>
+                            </div>
+                            <div class="col-2 d-flex align-items-center">
+                                <span>Caducidad</span>
                             </div>
                             <div class="col-2 d-flex align-items-center">
                                 <span>Acciones</span>
                             </div>
                         </div>
                     </li>
-                    <li class="list-group-item">
-                        <div class="d-flex">
-                            <div class="col-2 d-flex align-items-center">
-                                <span>PAR123</span>
+                    {% for medicamento in medicamentos %}
+                        <li class="list-group-item">
+                            <div class="d-flex">
+                                <div class="col-2 d-flex align-items-center">
+                                    <span>{{medicamento.sku}}</span>
+                                </div>
+                                <div class="col-2 d-flex align-items-center">
+                                    <span>{{medicamento.nombre}}</span>
+                                </div>
+                                <div class="col-2 d-flex align-items-center">
+                                    <span>$ {{medicamento.precio}}</span>
+                                </div>
+                                <div class="col-2 d-flex align-items-center">
+                                    <span>{{medicamento.cantidad}} unidades</span>
+                                </div>
+                                <div class="col-2 d-flex align-items-center">
+                                    <span>{{medicamento.fecha_caducidad}}</span>
+                                </div>
+                                <div class="col-2">
+                                    <a href="{% url 'infmedicamento'%}"><button class="btn btn-secondary d-flex align-items-center" type="button">Ver medicamento</button></a>
+                                </div>
                             </div>
-                            <div class="col-2 d-flex align-items-right">
-                                <span>123456</span>
-                            </div>
-                            <div class="col-2 d-flex align-items-center">
-                                <span>Paracetamol</span>
-                            </div>
-                            <div class="col-2 d-flex align-items-center">
-                                <span>500gm</span>
-                            </div>
-                            <div class="col-2 d-flex align-items-center">
-                                <span>50</span>
-                            </div>
-                            <div class="col-2">
-                                <a href="{% url 'infmedicamento'%}"><button class="btn btn-secondary d-flex align-items-center" type="button">Ver medicamento</button></a>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="list-group-item">
-                        <div class="d-flex">
-                            <div class="col-2 d-flex align-items-center">
-                                <span>BU123</span>
-                            </div>
-                            <div class="col-2 d-flex align-items-right">
-                                <span>123456</span>
-                            </div>
-                            <div class="col-2 d-flex align-items-center">
-                                <span>Butilhioscina</span>
-                            </div>
-                            <div class="col-2 d-flex align-items-center">
-                                <span>360gm</span>
-                            </div>
-                            <div class="col-2 d-flex align-items-center">
-                                <span>70</span>
-                            </div>
-                            <div class="col-2">
-                                <a href="{% url 'infmedicamento'%}"><button class="btn btn-secondary d-flex align-items-center" type="button">Ver medicamento</button></a>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="list-group-item">
-                        <div class="d-flex">
-                            <div class="col-2 d-flex align-items-center">
-                                <span>NAP123</span>
-                            </div>
-                            <div class="col-2 d-flex align-items-right">
-                                <span>123456</span>
-                            </div>
-                            <div class="col-2 d-flex align-items-center">
-                                <span>Naproxeno</span>
-                            </div>
-                            <div class="col-2 d-flex align-items-center">
-                                <span>500gm</span>
-                            </div>
-                            <div class="col-2 d-flex align-items-center">
-                                <span>40</span>
-                            </div>
-                            <div class="col-2">
-                                <a href="{% url 'infmedicamento'%}"><button class="btn btn-secondary d-flex align-items-center" type="button">Ver medicamento</button></a>
-                            </div>
-                        </div>
-                    </li>       
-                    <li class="list-group-item">
-                        <div class="d-flex">
-                            <div class="col-2 d-flex align-items-center">
-                                <span>MAR123</span>
-                            </div>
-                            <div class="col-2 d-flex align-items-right">
-                                <span>123456</span>
-                            </div>
-                            <div class="col-2 d-flex align-items-center">
-                                <span>Marihuanol</span>
-                            </div>
-                            <div class="col-2 d-flex align-items-center">
-                                <span>50g</span>
-                            </div>
-                            <div class="col-2 d-flex align-items-center">
-                                <span>65</span>
-                            </div>
-                            <div class="col-2">
-                                <a href="{% url 'infmedicamento'%}"><button class="btn btn-secondary d-flex align-items-center" type="button">Ver medicamento</button></a>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="list-group-item">
-                        <div class="d-flex">
-                            <div class="col-2 d-flex align-items-center">
-                                <span>VAP123</span>
-                            </div>
-                            <div class="col-2 d-flex align-items-right">
-                                <span>123456</span>
-                            </div>
-                            <div class="col-2 d-flex align-items-center">
-                                <span>Vaporub</span>
-                            </div>
-                            <div class="col-2 d-flex align-items-center">
-                                <span>120g</span>
-                            </div>
-                            <div class="col-2 d-flex align-items-center">
-                                <span>99</span>
-                            </div>
-                            <div class="col-2">
-                                <a href="{% url 'infmedicamento'%}"><button class="btn btn-secondary d-flex align-items-center" type="button">Ver medicamento</button></a>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="list-group-item">
-                        <div class="d-flex">
-                            <div class="col-2 d-flex align-items-center">
-                                <span>OME123</span>
-                            </div>
-                            <div class="col-2 d-flex align-items-right">
-                                <span>123456</span>
-                            </div>
-                            <div class="col-2 d-flex align-items-center">
-                                <span>Omeprazol</span>
-                            </div>
-                            <div class="col-2 d-flex align-items-center">
-                                <span>150 mg</span>
-                            </div>
-                            <div class="col-2 d-flex align-items-center">
-                                <span>80</span>
-                            </div>
-                            <div class="col-2">
-                                <a href="{% url 'infmedicamento'%}"><button class="btn btn-secondary d-flex align-items-center" type="button">Ver medicamento</button></a>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="list-group-item">
-                        <div class="d-flex">
-                            <div class="col-2 d-flex align-items-center">
-                                <span>GEN123</span>
-                            </div>
-                            <div class="col-2 d-flex align-items-right">
-                                <span>123456</span>
-                            </div>
-                            <div class="col-2 d-flex align-items-center">
-                                <span>Genoprazol</span>
-                            </div>
-                            <div class="col-2 d-flex align-items-center">
-                                <span>120g</span>
-                            </div>
-                            <div class="col-2 d-flex align-items-center">
-                                <span>75</span>
-                            </div>
-                            <div class="col-2">
-                                <a href="{% url 'infmedicamento'%}"><button class="btn btn-secondary d-flex align-items-center" type="button">Ver medicamento</button></a>
-                            </div>
-                        </div>
-                    </li>
+                        </li>
+                    {% endfor %}
                 </ul>
             </form>
         </div>
