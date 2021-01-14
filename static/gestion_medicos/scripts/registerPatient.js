@@ -239,7 +239,7 @@ function validarCURP(curp, label) {
 }
 
 function validarLetra(valorInput, label) {
-    let alfaRegex = /^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/g;
+    let alfaRegex = /^[a-zäÄëËïÏöÖüÜáéíóúáéíóúÁÉÍÓÚÂÊÎÔÛâêîôûàèìòùÀÈÌÒÙñÑ\s]+$/gi;
     if (!alfaRegex.test(valorInput) && validarCampoLleno(valorInput, label)) {
         label.innerHTML = "Este campo solo acepta letras";
         return 0;
@@ -285,10 +285,20 @@ function validarTelefono(telefono, label) {
 function validarFecha(date, label) {
     let x = new Date();
     let fecha = date.split("-");
+    let mes = fecha[1];
+    let anio = fecha[0];
+    if (mes == undefined || anio ==undefined) {
+        label.innerHTML = "Ingresa una fecha de nacimiento";
+        return 0;
+    }
     x.setFullYear(fecha[0], fecha[1] - 1, fecha[2]);
     let hoy = new Date();
-    if (x >= hoy) {
-        label.innerHTML = "Ingresa una fecha válida";
+    if((hoy.getFullYear() - anio) >= 125) {
+        console.log(hoy.getFullYear() + " " + anio + " " + (hoy.getFullYear() - anio));
+        label.innerHTML = "Ingresa una año de nacimiento válido";
+        return 0;
+    } else if (x >= hoy) {
+        label.innerHTML = "Ingresa una fecha de nacimiento válida";
         return 0;
     }
     return 1;
@@ -461,13 +471,13 @@ function validarDatosPacienteExterno() {
         1 -> CURP válido
         0 -> CURP no válido
     */
-    valido *= validarCURP(curpExterno.value.trim(), nombreError);
+    valido *= validarCURP(curpExterno.value.trim(), curpExternoError);
 
     /* Validación de valores alfabéticos 
         1 -> Valor alfabético válido
         0 -> Valor alfabético no válido
     */
-    valido *= validarLetra(nombre.value.trim(), temperaturaErrorExterno);
+    valido *= validarLetra(nombre.value.trim(), nombreError);
     valido *= validarLetra(aPaterno.value.trim(), aPaternoError);
     valido *= validarLetra(aMaterno.value.trim(), aMaternoError);
     valido *= validarLetra(nombreEmergencia.value.trim(), nombreEmergenciaError);

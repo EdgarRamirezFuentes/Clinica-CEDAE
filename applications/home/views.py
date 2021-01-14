@@ -57,7 +57,7 @@ class Login(TemplateView):
             try:
                 usuario = Usuario.objects.get(correo=str(correo[0]))
             except Usuario.DoesNotExist as ex:
-                messages.error("El correo ingresado no pertenece a ninguna cuenta")
+                messages.error(request, "El correo ingresado no pertenece a ninguna cuenta")
             if usuario:
                 if str(tipo[0]) == 'medico':
                     try:

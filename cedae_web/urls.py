@@ -33,4 +33,6 @@ urlpatterns = [
     re_path('', include('applications.gestion_empleados.urls')),
     # Incluyendo urls de la app gestion_expediente
     re_path('', include('applications.gestion_expediente.urls')),
+    # Incluyendo urls de la app gestion_admin
+    re_path('', include('applications.gestion_admin.urls')),
 ]

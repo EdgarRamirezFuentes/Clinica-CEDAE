@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'applications.gestion_empleados',
     'applications.gestion_farmacia',
     'applications.gestion_expediente',
+    'applications.gestion_admin',
     # Third party apps
 ]
 
