@@ -1,70 +1,47 @@
 {% extends 'gestion_farmacia/base.html' %}
 {% load static %}
+
 {% block title %}
 .: Datos Medicamento :.        
 {% endblock title %}
+
 {% block styles %}
 
 {% endblock styles %}
 
 
-{% block content %}s
+{% block content %}
 <div class="container">
     <div class="row justify-content-center">
         <p class="display-4 text-center text-primary mt-5">Datos del Medicamento</p>
         <div class="container">
             <div class="row">
                 <div class="col-md-5 bg-primary border rounded p-3">
-                    <div class="profile-picture d-flex justify-content-center">
-                        <img src="{% static 'gestion_farmacia/img/paracetamol.jpg'%}" width="222" height="222" class="rounded-circle">
-                    </div>
                     <div class="profile-data mt-7">
-                        <p class="h4 mb-1 font-weight-bold text-light">ID</p>
-                        <p class="h5 text-light">PAR123</p>
+                        <p class="h4 mb-1 font-weight-bold text-light">SKU</p>
+                        <p class="h5 text-light">{{medicamento.sku}}</p>
                         <div class="dropdown-divider"></div>
                         <p class="h4 mb-1 font-weight-bold text-light">Nombre</p>
-                        <p class="text-capitalize h5 font-weight-bold text-light">Tafirol</p>
+                        <p class="text-capitalize h5 font-weight-bold text-light">{{medicamento.nombre}}</p>
                         <div class="dropdown-divider"></div>
-                        <p class="h4 mb-1 font-weight-bold text-light">Lote</p>
-                        <p class="text-capitalize h5 font-weight-bold text-light">12345</p>
-                        <div class="dropdown-divider"></div>
-                        <p class="h4 mb-1 font-weight-bold text-light">Cantidad</p>
-                        <p class="h5 font-weight-bold text-light">500 mg</p>
-                        <div class="dropdown-divider"></div>
-                        <p class="h4 mb-1 font-weight-bold text-light">Unidades</p>
-                        <p class="h5 font-weight-bold text-light">50</p>
-                        <div class="dropdown-divider"></div>
-                        <p class="h4 mb-1 font-weight-bold text-light">Fecha de Caducidad</p>
-                        <p class="h5 font-weight-bold text-light">01/01/2021</p>
-                        <div class="dropdown-divider"></div>
-                        <p class="h4 mb-1 font-weight-bold text-light">Proveedor</p>
-                        <p class="h5 font-weight-bold text-light">ASOFARMA</p>
-
                     </div>
                 </div>
                 <div class="col-md-5 border border-primary rounded py-5 d-flex flex-column">
 
                     <div class="datos d-flex justify-content-between flex-column">
-                        <p class=" mb-1 font-weight-bold text-primary">Ingrediente Activo</p>
-                        <p class=" text-primary">Paracetamol</p>
+                        <p class=" mb-1 font-weight-bold text-primary">Sustancia activa</p>
+                        <p class=" text-primary">{{medicamento.sustancia_activa}}</p>
                         <div class="dropdown-divider"></div>
                         <p class=" mb-1 font-weight-bold text-primary">Presentacion</p>
-                        <p class=" text-primary">Tableta Comprimida</p>
-                        <div class="dropdown-divider"></div>
-                        <p class=" mb-1 font-weight-bold text-primary">País de Origen</p>
-                        <p class=" text-primary">México</p>
-                        <div class="dropdown-divider"></div>
-                        <p class=" mb-1 font-weight-bold text-primary">Domicilio de la Farmaceutica</p>
-                        <p class=" text-primary">Boulevard Piso 9, Perif. Blvd. Manuel Ávila Camacho 88, Miguel Hidalgo, 11000 CDMX</p>
+                        <p class=" text-primary">{{medicamento.presentacion}}</p>
                         <div class="dropdown-divider"></div>
                         <p class=" mb-1 font-weight-bold text-primary">Precio</p>
-                        <p class=" text-primary">$ 80</p>
+                        <p class=" text-primary">$ {{medicamento.precio}}</p>
+                        <p class=" mb-1 font-weight-bold text-primary">Unidades</p>
+                        <p class=" text-primary">{{medicamento.cantidad}}</p>
                         <div class="dropdown-divider"></div>
-                        <p class=" mb-1 font-weight-bold text-primary">Nombre contacto de distribuidor</p>
-                        <p class=" text-primary">Maldonado Castillo Idalia</p>
-                        <div class="dropdown-divider"></div>
-                        <p class=" mb-1 font-weight-bold text-primary">Teléfono contacto de distribuidor</p>
-                        <p class=" text-primary">5591440244</p>
+                        <p class=" mb-1 font-weight-bold text-primary">Fecha de Caducidad</p>
+                        <p class=" text-primary">{{medicamento.fecha_caducidad}}</p>
                     </div>
                     <div class="botones mt-5">
                         <div class="d-flex mb-4">

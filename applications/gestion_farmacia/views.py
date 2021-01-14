@@ -1,6 +1,6 @@
 from django.shortcuts import render, HttpResponse, redirect
 from django.contrib import messages
-from django.views.generic import TemplateView, ListView
+from django.views.generic import TemplateView, ListView, DetailView, UpdateView
 import datetime
 from datetime import date
 from django.contrib import messages
@@ -28,8 +28,10 @@ class inventario(ListView):
 class surtirreceta(TemplateView):
     template_name = 'gestion_farmacia/surtirreceta.html'
 
-class infmedicamento(TemplateView):
+class infmedicamento(DetailView):
     template_name = 'gestion_farmacia/infmedicamento.html'
+    model = Medicamento
+    context_object_name = 'medicamento'
 
 class surtircedae(TemplateView):
     template_name = 'gestion_farmacia/surtircedae.html'

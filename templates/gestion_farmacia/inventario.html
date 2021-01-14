@@ -64,7 +64,7 @@
                                     <span>{{medicamento.fecha_caducidad}}</span>
                                 </div>
                                 <div class="col-2">
-                                    <a href="{% url 'infmedicamento'%}"><button class="btn btn-secondary d-flex align-items-center" type="button">Ver medicamento</button></a>
+                                    <a href="{% url 'infmedicamento' medicamento.sku%}"><button class="btn btn-secondary d-flex align-items-center" type="button">Ver medicamento</button></a>
                                 </div>
                             </div>
                         </li>
