@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-.: Médicos :.
+.: Encargados farmacia :.
 {% endblock title %}
 
 {% block styles %}
@@ -14,30 +14,30 @@
 {% block content %}
 <div class="container">
     <div class="row flex-column">
-        <p class="w-100 display-4 text-center text-primary mt-5">Médicos</p>
+        <p class="w-100 display-4 text-center text-primary mt-5">Encargados de farmacia</p>
         <div class="w-100">
-            <form action="{% url 'searchDoctorsAdmin'%}" method="GET" id="buscarMedico" name="buscarMedico">
+            <form action="{% url 'searchEncargadosAdmin'%}" method="GET" id="buscarMedico" name="buscarMedico">
                 {% csrf_token %}
                 <div class="input-group w-75">
                     <div class="input-group-prepend">
-                        <span class="input-group-text">CURP del médico</span>
+                        <span class="input-group-text">CURP del encargado de farmacia</span>
                     </div>
                     <input type="text" class="form-control mr-5" name="curp" id="curp">
                     <button type="submit" class="btn btn-primary">Buscar</button>
                 </div>
             </form>
-            {% if not medicos %} 
-                <h2 class="mt-3 text-center">No hay ningun médico registrado con ese CURP</h2>
+            {% if not encargados %} 
+                <h2 class="mt-3 text-center">No hay ningun encargado de farmacia registrado con ese CURP</h2>
             {% else %}
             <ul class="list-group mt-4">
-                {% for medico in medicos %}
+                {% for encargado in encargados %}
                     <li class="list-group-item">
                         <div class="d-flex">
                             <div class="col-5 d-flex align-items-center">
-                                <span>{{ medico.empleado_id_id }} </span>
+                                <span>{{ encargado.empleado_id_id }} </span>
                             </div>
                             <div class="col-5 d-flex align-items-center">
-                                <span>{{medico.empleado_id.usuario_curp.apellidoPaterno}} {{medico.empleado_id.usuario_curp.apellidoMaterno}} {{medico.empleado_id.usuario_curp.nombre}}</span>
+                                <span>{{encargado.empleado_id.usuario_curp.apellidoPaterno}} {{encargado.empleado_id.usuario_curp.apellidoMaterno}} {{encargado.empleado_id.usuario_curp.nombre}}</span>
                             </div>
                             <a href="" class="btn btn-primary">Ver más</a>
                         </div>

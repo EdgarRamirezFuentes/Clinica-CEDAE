@@ -11,6 +11,7 @@ from ..gestion_pacientes.models import Consulta
 from ..gestion_expediente.models import Expediente
 from ..gestion_medicos.models import Medico
 from ..gestion_empleados.models import Empleado
+from ..gestion_farmacia.models import Encargado_farmacia
 from .models import Administrador
 
 class Home(TemplateView):
@@ -97,7 +98,35 @@ class ListarMedicosPorID(ListView):
         def get_queryset(self):
             curp = self.request.GET.get('curp', '')
             queryset = Medico.objects.filter(
-                empleado_id_id = curp
+                empleado_id__usuario_curp__curp__icontains = curp
             )
             return queryset
-        
+
+class ListarEncargadosFarmacia(ListView):
+    template_name = 'gestion_admin/encargados.html'
+    model = Encargado_farmacia
+    context_object_name = 'encargados'
+    
+    
+class ListarEncargadosPorID(ListView):
+        template_name = 'gestion_admin/encargados.html'
+        context_object_name = 'encargados'
+        ## Válida que esté logeado un administrador
+        def get(self, *args, **kwargs):
+            if self.request.session.get('id_admin', False):
+                return super().get(*args, **kwargs)
+            elif self.request.session.get('id_encargado', False):
+                return redirect('homefarmacia')
+            elif self.request.session.get('id_medico', False):
+                return redirect('homeMedico')
+            else:
+                messages.warning(self.request, 'Para ingresar a la página de administrador debes iniciar sesion primero')
+                return redirect('loginAdmin')
+            
+        def get_queryset(self):
+            curp = self.request.GET.get('curp', '')
+            queryset = Encargado_farmacia.objects.filter(
+                empleado_id__usuario_curp__curp__icontains = curp
+            )
+            return queryset
+    
