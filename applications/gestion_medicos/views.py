@@ -25,6 +25,8 @@ class Home(TemplateView):
     def get(self, *args, **kwargs):
         if self.request.session.get('id_medico', False):
             return super().get(*args, **kwargs)
+        elif self.request.session.get('id_encargado', False):
+            return redirect('homefarmacia')
         else:
             messages.warning(self.request, 'Para ingresar a la página de médico debes iniciar sesion primero')
             return redirect('login')
@@ -47,6 +49,8 @@ class Calendar(TemplateView):
     def get(self, *args, **kwargs):
         if self.request.session.get('id_medico', False):
             return super().get(*args, **kwargs)
+        elif self.request.session.get('id_encargado', False):
+            return redirect('homefarmacia')
         else:
             messages.warning(self.request, 'Para ingresar a la página de médico debes iniciar sesion primero')
             return redirect('login')
@@ -59,6 +63,8 @@ class listarPacientes(ListView):
     def get(self, *args, **kwargs):
         if self.request.session.get('id_medico', False):
             return super().get(*args, **kwargs)
+        elif self.request.session.get('id_encargado', False):
+            return redirect('homefarmacia')
         else:
             messages.warning(self.request, 'Para ingresar a la página de médico debes iniciar sesion primero')
             return redirect('login')
@@ -70,6 +76,8 @@ class listarPacientePorID(ListView):
         def get(self, *args, **kwargs):
             if self.request.session.get('id_medico', False):
                 return super().get(*args, **kwargs)
+            elif self.request.session.get('id_encargado', False):
+                return redirect('homefarmacia')
             else:
                 messages.warning(self.request, 'Para ingresar a la página de médico debes iniciar sesion primero')
                 return redirect('login')
@@ -98,6 +106,8 @@ class verExpedientePaciente(TemplateView):
     def get(self, *args, **kwargs):
         if self.request.session.get('id_medico', False):
             return super().get(*args, **kwargs)
+        elif self.request.session.get('id_encargado', False):
+            return redirect('homefarmacia')
         else:
             messages.warning(self.request, 'Para ingresar a la página de médico debes iniciar sesion primero')
             return redirect('login')
@@ -108,6 +118,8 @@ class modificarExpediente(TemplateView):
     def get(self, *args, **kwargs):
         if self.request.session.get('id_medico', False):
             return super().get(*args, **kwargs)
+        elif self.request.session.get('id_encargado', False):
+            return redirect('homefarmacia')
         else:
             messages.warning(self.request, 'Para ingresar a la página de médico debes iniciar sesion primero')
             return redirect('login')
@@ -165,6 +177,8 @@ class appointment(TemplateView):
     def get(self, *args, **kwargs):
         if self.request.session.get('id_medico', False):
             return super().get(*args, **kwargs)
+        elif self.request.session.get('id_encargado', False):
+            return redirect('homefarmacia')
         else:
             messages.warning(self.request, 'Para ingresar a la página de médico debes iniciar sesion primero')
             return redirect('login')
@@ -264,6 +278,8 @@ class RegisterPatient(TemplateView):
     def get(self, *args, **kwargs):
         if self.request.session.get('id_medico', False):
             return super().get(*args, **kwargs)
+        elif self.request.session.get('id_encargado', False):
+            return redirect('homefarmacia')
         else:
             messages.warning(self.request, 'Para ingresar a la página de médico debes iniciar sesion primero')
             return redirect('login')

@@ -41,21 +41,12 @@
         <div class="form-group d-flex flex-column" id="tipo-group">
           <span class="w-100 text-center">Selecciona tu rol</span>
           <div class="d-flex flex-wrap">
-            <div class="col-md-6 d-flex">
-              <input type="radio" id="paciente" name="tipo" value="paciente" checked>
-              <label for="paciente" class="mt-2 ml-2">Paciente</label><br>
-            </div>
-            <div class="col-md-6 d-flex">
-              <input type="radio" id="medico" name="tipo" value="medico">
-              <label for="medico" class="mt-2 ml-2">Médico</label><br>
-            </div>
-            <div class="col-md-6 d-flex">
-              <input type="radio" id="encargado" name="tipo" value="encargado" >
-              <label for="encargado" class="mt-2 ml-2">Encargado farmacia</label><br>
-            </div>
-            <div class="col-md-6 d-flex">
-              <input type="radio" id="recepcionista" name="tipo" value="recepcionista">
-              <label for="recepcionista" class="mt-2 ml-2">Recepcionista</label><br>
+            <div class="form-group w-100">
+              <select name="tipo"  class="form-control" id="tipo">
+                <option value="paciente">Paciente</option>
+                <option value="medico">Médico</option>
+                <option value="encargado">Encargado de farmacia</option>
+              </select>
             </div>
           </div>
         </div>
