@@ -54,31 +54,32 @@
             <div class="col-md-6">
                 <ul class="list-group">
                     <li class="list-group-item active text-center">Medicamentos proximos a caducar</li>
-                    <li class="list-group-item">
-                        <p>ID: PAR123</p>
-                        <p>Nombre del medicamento: Paracetamol </p>
-                        <p>Cantidad Disponible: 50</p>
-                        <p>Fecha de Caducidad: 01/01/2021</p>
-                        <a href="{% url 'infmedicamento'%}">
-                            <button type="button" class="btn btn-primary">Revisar Medicamento</button>
-                        </a>
-                    </li>
-                    <div class="dropdown-divider"></div>
+                    {% for medicamentoACaducar in medicamentosACaducar %}
+                        <li class="list-group-item">
+                            <p>ID: {{medicamentoACaducar.sku}}</p>
+                            <p>Nombre del medicamento: {{medicamentoACaducar.nombre}}</p>
+                            <p>Cantidad Disponible: {{medicamentoACaducar.cantidad}}</p>
+                            <p>Fecha de Caducidad: {{medicamentoACaducar.fecha_caducidad}}</p>
+                            <a href="{% url 'infmedicamento' medicamentoACaducar.sku %}">
+                                <button type="button" class="btn btn-primary">Revisar Medicamento</button>
+                            </a>
+                        </li>
+                        <div class="dropdown-divider"></div>
+                    {% endfor %}
                 </ul>
             </div>
             <div class="col-md-6">
                 <ul class="list-group">
                     <li class="list-group-item active text-center">Medicamento por agotarse</li>
-                    <li class="list-group-item">
-                        <p>ID: BUT123</p>
-                        <p>Nombre del medicamento: Butilhioscina</p>
-                        <p>Cantidad Disponible: 4</p>
-                        <p>Fecha de Caducidad: 01/01/2025</p>
-                        <a href="{% url 'inventario'%}">
-                            <button type="button" class="btn btn-primary">Solicitar Medicamento</button>
-                        </a>
-                    </li>
-                    <div class="dropdown-divider"></div>
+                    {% for medicamentoATerminar in medicamentosATerminar %}
+                        <li class="list-group-item">
+                            <p>ID: {{medicamentoATerminar.sku}}</p>
+                            <p>Nombre del medicamento: {{medicamentoATerminar.nombre}}</p>
+                            <p>Cantidad Disponible: {{medicamentoATerminar.cantidad}}</p>
+                            <p>Fecha de Caducidad: {{medicamentoATerminar.fecha_caducidad}}</p>
+                        </li>
+                        <div class="dropdown-divider"></div>
+                    {% endfor %}
                     <div class="dropdown-divider"></div>
                 </ul>
             </div>

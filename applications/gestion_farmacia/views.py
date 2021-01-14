@@ -1,6 +1,8 @@
 from django.shortcuts import render, HttpResponse, redirect
 from django.contrib import messages
 from django.views.generic import TemplateView, ListView, DetailView, UpdateView
+from datetime import timedelta
+from django.db.models import F
 import datetime
 from datetime import date
 from django.contrib import messages
@@ -19,6 +21,12 @@ class Home(TemplateView):
         else:
             messages.warning(self.request, 'Para ingresar a la página de encargado de farmacia debes iniciar sesion primero')
             return redirect('login')
+        
+    def get_context_data(self, **kwargs):
+        context = super(Home, self).get_context_data(**kwargs)
+        context['medicamentosACaducar'] = Medicamento.objects.filter(fecha_caducidad__lte = date.today() + timedelta(days=90))
+        context['medicamentosATerminar'] = Medicamento.objects.filter(cantidad__lte = 20)
+        return context
     
 class inventario(ListView):
     template_name = 'gestion_farmacia/inventario.html'
