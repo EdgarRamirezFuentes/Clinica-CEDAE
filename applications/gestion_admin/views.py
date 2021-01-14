@@ -10,6 +10,7 @@ from ..gestion_pacientes.models import Cita
 from ..gestion_pacientes.models import Consulta
 from ..gestion_expediente.models import Expediente
 from ..gestion_medicos.models import Medico
+from ..gestion_empleados.models import Empleado
 from .models import Administrador
 
 class Home(TemplateView):
@@ -61,3 +62,42 @@ class Login (TemplateView):
                 else:
                     messages.error(request, "La contraseña ingresada no es correcta")
         return redirect('loginAdmin')
+    
+class ListarMedicos(ListView):
+    template_name = 'gestion_admin/doctors.html'
+    model = Medico
+    context_object_name = 'medicos'
+    
+    def get(self, *args, **kwargs):
+        if self.request.session.get('id_admin', False):
+            return super().get(*args, **kwargs)
+        elif self.request.session.get('id_encargado', False):
+            return redirect('homefarmacia')
+        elif self.request.session.get('id_medico', False):
+            return redirect('homeMedico')
+        else:
+            messages.warning(self.request, 'Para ingresar a la página de administrador debes iniciar sesion primero')
+            return redirect('loginAdmin')
+        
+class ListarMedicosPorID(ListView):
+        template_name = 'gestion_admin/doctors.html'
+        context_object_name = 'medicos'
+        ## Válida que esté logeado un administrador
+        def get(self, *args, **kwargs):
+            if self.request.session.get('id_admin', False):
+                return super().get(*args, **kwargs)
+            elif self.request.session.get('id_encargado', False):
+                return redirect('homefarmacia')
+            elif self.request.session.get('id_medico', False):
+                return redirect('homeMedico')
+            else:
+                messages.warning(self.request, 'Para ingresar a la página de administrador debes iniciar sesion primero')
+                return redirect('loginAdmin')
+            
+        def get_queryset(self):
+            curp = self.request.GET.get('curp', '')
+            queryset = Medico.objects.filter(
+                empleado_id_id = curp
+            )
+            return queryset
+        
