@@ -45,11 +45,10 @@
                     </div>
                     <div class="botones mt-5">
                         <div class="d-flex mb-4">
-                            <div class="col-md-6"><button class="w-100 text-center btn btn-success">Solicitar Medicamento</button></div>
                             <div class="col-md-6"><a href="{% url 'inventario'%}"><button class="w-100 text-center btn btn-primary">Volver a Inventario</button></a></div>
                         </div>
                         <div class="d-flex">
-                            <div class="col-md-6"><a href="{% url 'modmedicamento'%}"><button class="w-100 text-center btn btn-dark">Modificar datos</button></a></div>
+                            <div class="col-md-6"><a href="{% url 'modmedicamento' medicamento.sku %}"><button class="w-100 text-center btn btn-dark">Modificar datos</button></a></div>
                             <div class="col-md-6"><button type="button" onclick="bajamed()" class="w-100 text-center btn btn-danger">Dar de baja</button></div>
                         </div>
 
