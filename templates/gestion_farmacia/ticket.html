@@ -8,47 +8,47 @@
 {% endblock styles %}
 
 
-{% block content %}s
+{% block content %}
 <div class="container">
     <div class="row justify-content-center">
-<div class="ticket">
-    <img
-    src="{% static 'gestion_farmacia/img/logito.png' %}"
-        alt="Logotipo">
+<div class="">
+    <img src="{% static 'gestion_farmacia/img/logito.png' %}"
+        alt="Logotipo" style="width: 200px;">
         <div class="mb-3"></div>
-    <p class="centrado">TICKET DE VENTA<br>CEDAE<br>21/12/2021
-        10:04 p.m.</p>
-    <table>
-        <thead>
-            <tr>
-                <th>CANT</th>
-                <th>PRODUCTO</th>
-                <th>$$</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>1.00</td>
-                <td>Paracetamol 80 G</td>
-                <td>$85.50</td>
-            </tr>
-            <tr>
-                <td>3.00</td>
-                <td>Vaporub</td>
-                <td>$102.00</td>
-            </tr>
-            <tr>
-                <td>1.00</td>
-                <td>Genoprazol</td>
-                <td>$85.00</td>
-            </tr>
-            <tr>
-                <td></td>
-                <td>TOTAL</td>
-                <td>$272.50</td>
-            </tr>
-        </tbody>
-    </table>
+    <p class="centrado">TICKET DE VENTA<br>CEDAE<br>{{ticket.fecha_expedicion}}</p>
+    <div class="row d-flex justify-content-between">
+        <div class="col-xs-6">
+            <label>Producto</label>
+        </div>
+        <div class="col-xs-6">
+            <label>Precio</label>
+        </div>
+        
+    </div>
+    <div class="row d-flex justify-content-between">
+        
+        <div class="col-xs-6">
+            {% for med in listaMed %}
+                {% if med != " " %}
+                <p>{{med}}</p>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <div class="col-xs-6">
+            {% for precio in listaPrecios %}
+                {% if precio != " " %}
+                <p>${{precio}}</p>
+                {% endif %}
+            {% endfor %}
+        </div>
+        
+    </div>
+
+    <div class="d-flex justify-content-between">
+        <label>TOTAL</label>
+        <label>$ {{ticket.costo_total}}</label>
+    </div>
+   
     <p class="centrado">¡GRACIAS POR SU COMPRA!<br>www.cedae.com</p>
 </div>
 </div>
