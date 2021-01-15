@@ -131,13 +131,12 @@
                                 </div>-->
                                 <div id="newDrug">
                                 </div>
-                                {% if medicamentos %}
-                                    <select style="visibility: hidden;" id="medSelect">
+                                    <input list="medSelect" name="medInput" id="medInput" style="visibility: hidden;">
+                                    <datalist style="visibility: hidden;" id="medSelect">
                                         {% for medicamento in medicamentos %}
-                                            <option>{{medicamento.nombre}}</option>
+                                            <option value="{{medicamento.nombre}}">
                                         {% endfor %}
-                                    </select>
-                                {% endif %}
+                                    </datalist>
                                 <div class="form-group">
                                     <button type="button" onclick="agregarMedicamento(1)" class="btn btn-success w-80 mt-2">Agregar medicamento</button>
                                     <button type="button" onclick="eliminarMedicamento()" class="btn btn-danger w-80 mt-2">Eliminar medicamento</button>

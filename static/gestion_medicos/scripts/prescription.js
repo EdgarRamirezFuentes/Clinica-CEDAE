@@ -9,7 +9,9 @@ function agregarMedicamento(numero, listaMeds) {
     var selectDrug = 0;
     var selectDrugGod = document.getElementById("medSelect")
 
-    selectDrug = selectDrugGod.cloneNode(true);
+    selectDrug = selectDrugGod.cloneNode(true); //este es el datalist
+
+    var inputSelectDrug = document.createElement("input"); //input para el datalist
 
     //-----------------------------------------------------------------:
     var divIndications = document.createElement("div");
@@ -19,12 +21,17 @@ function agregarMedicamento(numero, listaMeds) {
 
     labelDrug.appendChild(labelDrugText);
 
-    selectDrug.style = ""
-    selectDrug.className = "form-control";
-    selectDrug.id = "med"+num;
-    selectDrug.name = "med"+num;
+    inputSelectDrug.style = "";
+    inputSelectDrug.className = "form-control";
+    inputSelectDrug.id = "med"+num;
+    inputSelectDrug.name = "med"+num;
+    inputSelectDrug.setAttribute('list', "datalist"+num);
+
+    selectDrug.style = "";
+    selectDrug.id = "datalist"+num;
 
     divDrug.appendChild(labelDrugText);
+    divDrug.appendChild(inputSelectDrug);
     divDrug.appendChild(selectDrug);
     divDrug.className = "form-group";
     
