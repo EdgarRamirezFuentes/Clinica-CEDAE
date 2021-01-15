@@ -114,11 +114,6 @@
                     <div id="receta" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
                         <div class="card-body">
                             
-                                
-                                <p class="font-weight-bold text-primary mt-3">Los campos con <span
-                                    class="text-danger">*</span>
-                                son obligatorios</p>
-                            
                                 <!--<div class="form-group">
                                     <label for="medicamento">Medicamento <span
                                         class="text-danger font-weight-bold ml-5">*</span></label>
@@ -136,7 +131,14 @@
                                 </div>-->
                                 <div id="newDrug">
                                 </div>
-                                <div class="form-group">      
+                                {% if medicamentos %}
+                                    <select style="visibility: hidden;" id="medSelect">
+                                        {% for medicamento in medicamentos %}
+                                            <option>{{medicamento.nombre}}</option>
+                                        {% endfor %}
+                                    </select>
+                                {% endif %}
+                                <div class="form-group">
                                     <button type="button" onclick="agregarMedicamento(1)" class="btn btn-success w-80 mt-2">Agregar medicamento</button>
                                     <button type="button" onclick="eliminarMedicamento()" class="btn btn-danger w-80 mt-2">Eliminar medicamento</button>
                                     <div class="my-3 d-flex">

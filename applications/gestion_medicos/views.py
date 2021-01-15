@@ -15,6 +15,7 @@ from ..gestion_pacientes.models import Cita
 from ..gestion_pacientes.models import Consulta
 from ..gestion_expediente.models import Expediente
 from ..gestion_medicos.models import Medico
+from ..gestion_farmacia.models import Medicamento
 
 class Home(TemplateView):
     template_name = 'gestion_medicos/home.html'
@@ -187,6 +188,7 @@ class appointment(TemplateView):
         context = super(appointment, self).get_context_data(**kwargs)
         context['paciente'] = Paciente.objects.get(pk = self.kwargs.get('pk'))
         context['expediente'] = Expediente.objects.get(pk = self.kwargs.get('pk'))
+        context['medicamentos'] = Medicamento.objects.filter()
         return context
     
     def post(self, request, *args, **kwargs):
