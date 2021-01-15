@@ -32,6 +32,17 @@ class infmedicamento(DetailView):
     template_name = 'gestion_farmacia/infmedicamento.html'
     model = Medicamento
     context_object_name = 'medicamento'
+    
+    def post(self, request, *args, **kwargs):
+        if request.method == 'POST':
+            sk = request.POST['baja']
+            med = Medicamento.objects.get(pk = sk)
+            try:
+                med.delete()
+                messages.success(request, 'Medicamento eliminado correctamente')
+            except Exception as es:
+                messages.error(request, 'Hubo un error al intentar eliminar el medicamento')
+        return redirect('inventario')
 
 class surtircedae(TemplateView):
     template_name = 'gestion_farmacia/surtircedae.html'
@@ -44,9 +55,8 @@ class agregarmedicamento(TemplateView):
 
     def post(self, request, *args, **kwargs):
         if request.method == 'POST':
-            med = Medicamento.objects.get(pk = self.kwargs.get('pk'))
             medicamento = Medicamento(
-                sku = med,
+                sku = request.POST['sku'],
                 nombre = request.POST['nombre'],
                 sustancia_activa = request.POST['sustancia_activa'],
                 presentacion = request.POST['presentacion'],
@@ -68,8 +78,9 @@ class modmedicamento(DetailView):
 
     def post(self, request, *args, **kwargs):
         if request.method == 'POST':
+            med = Medicamento.objects.get(pk = self.kwargs.get('pk'))
             medicamento = Medicamento(
-                sku = request.POST['sku'],
+                sku = med,
                 nombre = request.POST['nombre'],
                 sustancia_activa = request.POST['sustancia_activa'],
                 presentacion = request.POST['presentacion'],

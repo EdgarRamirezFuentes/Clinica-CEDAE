@@ -23,7 +23,7 @@ function bajamed() {
         cancelButtonColor: '#ff4d4d',
     }) .then((result) => {
         if (result.isConfirmed) {
-            Swal.fire("Medicamento dado de baja con exito", '', 'success');
+            document.bajaMedicamento.submit();
         }
     });
 }
