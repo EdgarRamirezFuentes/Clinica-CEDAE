@@ -212,11 +212,13 @@ class appointment(TemplateView):
                     )
             a = 'med'
             b = 'ind'
+            recortado = ''
             listaMeds = []
             listaInst = []
             for x in range(1,15):
                 if a+str(x) in request.POST:
-                    listaMeds.append(request.POST[a+str(x)])
+                    recortado = request.POST[a+str(x)].split('|')[0]
+                    listaMeds.append(recortado)
             for x in range(1,15):
                 if b+str(x) in request.POST:
                     listaInst.append(request.POST[b+str(x)])
@@ -224,8 +226,8 @@ class appointment(TemplateView):
             receta = Receta(
                     consulta_id = Consulta.objects.get(expediente_id_id = self.kwargs.get('pk')),
                     medico_id = Medico.objects.get(pk = self.request.session['id_medico']), ## Provisional en lo que se obtiene el id del médico
-                    medicamentos = ','.join(listaMeds),
-                    indicacion_medicamentos = ','.join(listaInst),
+                    medicamentos = ' - '.join(listaMeds),
+                    indicacion_medicamentos = ' - '.join(listaInst),
                 )
             try:
                 expediente.save()

@@ -134,7 +134,7 @@
                                     <input list="medSelect" name="medInput" id="medInput" style="visibility: hidden;">
                                     <datalist style="visibility: hidden;" id="medSelect">
                                         {% for medicamento in medicamentos %}
-                                            <option value="{{medicamento.nombre}}">
+                                            <option value="{{medicamento.nombre}} | Disponibles: {{medicamento.cantidad}}">
                                         {% endfor %}
                                     </datalist>
                                 <div class="form-group">

@@ -1,5 +1,5 @@
 var num = 0;
-function agregarMedicamento(numero, listaMeds) {
+function agregarMedicamento(numero) {
     num = num + numero;
     var divParent = document.createElement("div");
     //------------------------------------------------------------------:
