@@ -44,7 +44,6 @@ class BuscarMedicamentosPorNombre(ListView):
             nombre__icontains = nombre
         )
         return queryset
-    pass
 
 class surtirreceta(TemplateView):
     template_name = 'gestion_farmacia/surtirreceta.html'
@@ -68,8 +67,18 @@ class infmedicamento(DetailView):
 class surtircedae(TemplateView):
     template_name = 'gestion_farmacia/surtircedae.html'
 
-class surtirpublico(TemplateView):
+class surtirpublico(ListView):
     template_name = 'gestion_farmacia/surtirpublico.html'
+    model = Medicamento
+    context_object_name = 'medicamentos'
+    
+    def post(self, request, *args, **kwargs):
+        if request.method == 'POST':
+            for i in request.POST:
+                print(i)
+            #l = request.POST['algo']
+            pass
+    redirect('ticket')
 
 class agregarmedicamento(TemplateView):
     template_name = 'gestion_farmacia/agregarmedicamento.html'
