@@ -32,6 +32,19 @@ class inventario(ListView):
     template_name = 'gestion_farmacia/inventario.html'
     model = Medicamento
     context_object_name = 'medicamentos'
+    
+class BuscarMedicamentosPorNombre(ListView):
+    template_name = 'gestion_farmacia/inventario.html'
+    model = Medicamento
+    context_object_name = 'medicamentos'
+    
+    def get_queryset(self):
+        nombre = self.request.GET.get('nombre', '')
+        queryset = Medicamento.objects.filter(
+            nombre__icontains = nombre
+        )
+        return queryset
+    pass
 
 class surtirreceta(TemplateView):
     template_name = 'gestion_farmacia/surtirreceta.html'
