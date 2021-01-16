@@ -124,13 +124,19 @@ class agregarmedicamento(TemplateView):
                 precio = float(request.POST['precio']),
                 cantidad = int(request.POST['cantidad']),
                 fecha_caducidad = request.POST['fecha_caducidad'],
-                )
+            )
+            pruebaExistencia = None
             try:
-                medicamento.save()
-                messages.success(request, 'Medicamento agregado correctamente')
-            except Exception as ex:
-                messages.error(request, 'Hubo un error al intentar agregar el medicamento')
-        return redirect('inventario')
+                pruebaExistencia = Medicamento.objects.get(sku = medicamento.sku)
+                print(pruebaExistencia)
+                messages.error(request, 'El SKU ingresado ya existe en el inventario')
+            except Medicamento.DoesNotExist as ex:
+                try:
+                    medicamento.save()
+                    messages.success(request, 'Medicamento agregado correctamente') 
+                except Exception as ex:
+                    messages.error(request, 'Hubo un error al intentar agregar el medicamento')
+        return redirect('agregarmedicamento')
 
 class modmedicamento(DetailView):
     template_name = 'gestion_farmacia/modmedicamento.html'
