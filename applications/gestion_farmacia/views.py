@@ -115,17 +115,26 @@ class modmedicamento(DetailView):
     def post(self, request, *args, **kwargs):
         if request.method == 'POST':
             med = Medicamento.objects.get(pk = self.kwargs.get('pk'))
-            medicamento = Medicamento(
-                sku = med,
+            
+            ## Modificacion de los campos del registro de la DB
+            med.sku = request.POST['sku']
+            med.nombre = request.POST['nombre']
+            med.sustancia_activa = request.POST['sustancia_activa']
+            med.presentacion = request.POST['presentacion']
+            med.precio = float(request.POST['precio'])
+            med.cantidad = int(request.POST['cantidad'])
+            med.fecha_caducidad = request.POST['fecha_caducidad']
+            '''medicamento = Medicamento(
+                sku = request.POST['sku'],
                 nombre = request.POST['nombre'],
                 sustancia_activa = request.POST['sustancia_activa'],
                 presentacion = request.POST['presentacion'],
                 precio = float(request.POST['precio']),
                 cantidad = int(request.POST['cantidad']),
                 fecha_caducidad = request.POST['fecha_caducidad'],
-                )
+            )'''
             try:
-                medicamento.save()
+                med.save()
                 messages.success(request, 'Medicamento modificado correctamente')
             except Exception as ex:
                 messages.error(request, 'Hubo un error al intentar modificar el medicamento')
