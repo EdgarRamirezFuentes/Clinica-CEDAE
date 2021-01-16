@@ -36,10 +36,6 @@ th.precio {
     align-content: center;
 }
 
-.ticket {
-    width: 155px;
-    max-width: 155px;
-}
 
 img {
     max-width: inherit;

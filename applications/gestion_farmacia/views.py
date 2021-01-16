@@ -4,11 +4,12 @@ from django.views.generic import TemplateView, ListView, DetailView, UpdateView
 from datetime import timedelta
 from django.db.models import F
 import datetime
-from datetime import date
+from datetime import date, datetime
 from django.contrib import messages
 from django.core.mail import send_mail
 from django.conf import settings
 from ..gestion_farmacia.models import Medicamento
+from ..gestion_farmacia.models import Ticket
 
 
 class Home(TemplateView):
@@ -71,14 +72,44 @@ class surtirpublico(ListView):
     template_name = 'gestion_farmacia/surtirpublico.html'
     model = Medicamento
     context_object_name = 'medicamentos'
-    
     def post(self, request, *args, **kwargs):
         if request.method == 'POST':
+            listaSKU = []
+            listaCantidad = []
+            x = 1
             for i in request.POST:
-                print(i)
-            #l = request.POST['algo']
-            pass
-        redirect('ticket')
+                if x % 2 == 0:
+                    listaSKU.append(i)
+                elif x%2 != 0 and x!=1:
+                    listaCantidad.append(request.POST[i])
+                x = x+1
+            costoTotal = 0
+            listaMeds = []
+            listaCosto = []
+            for x in range(0,len(listaSKU)):
+                med = Medicamento.objects.get(sku = listaSKU[x])
+                med.cantidad = med.cantidad - int(listaCantidad[x])
+                costoTotal = costoTotal + (med.precio * (int(listaCantidad[x])))
+                listaCosto.append(med.precio * (int(listaCantidad[x])))
+                listaMeds.append(med.nombre)
+                med.save()
+            medi = ''
+            precio = ''
+            for x in range(0, len(listaMeds)):
+                medi = medi + str(listaCantidad[x])+ '. ' + listaMeds[x] + ' , '
+                precio = precio + str(listaCosto[x]) + ' , '
+            ticket = Ticket(
+                    medicamentos = medi,
+                    costo_total = costoTotal,
+                    precioProducto = precio,
+                    fecha_expedicion = datetime.now(),
+            )
+            try:
+                ticket.save()
+                messages.success(request, 'Se registró correctamente el ticket')
+            except Exception as ex:
+                messages.error(request, 'Hubo un error al tratar de registrar el ticket', 'error')
+        return redirect('ticket')
 
 class agregarmedicamento(TemplateView):
     template_name = 'gestion_farmacia/agregarmedicamento.html'
@@ -142,3 +173,12 @@ class modmedicamento(DetailView):
 
 class ticket(TemplateView):
     template_name = 'gestion_farmacia/ticket.html'
+    
+    def get_context_data(self, **kwargs):
+        context = super(ticket, self).get_context_data(**kwargs)
+        tick = Ticket.objects.last()
+        context['ticket'] = Ticket.objects.last()
+        context['listaMed'] = tick.medicamentos.split(",")
+        context['listaPrecios'] = tick.precioProducto.split(",")
+        return context
+    

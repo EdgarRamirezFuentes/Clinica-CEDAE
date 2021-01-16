@@ -14,8 +14,8 @@ class Medicamento(models.Model):
     cantidad = models.IntegerField(default=0)
     fecha_caducidad = models.DateField()
 
-#class Ticket(models.Model):
-    
- #   fecha_expedicion = models.DateField(auto_now=True, auto_now_add=True)
-  #  costo_total = models.FloatField()
-   # pass
+class Ticket(models.Model):
+    fecha_expedicion = models.DateTimeField(auto_now=True)
+    medicamentos = models.CharField(max_length=500)
+    precioProducto = models.CharField(max_length=500, default=0)
+    costo_total = models.FloatField(default=0)

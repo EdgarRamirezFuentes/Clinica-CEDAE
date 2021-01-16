@@ -46,16 +46,16 @@
             <tbody id="medicamentosContainer">
                 {% for medicamento in medicamentos %}
                 <tr id="{{medicamento.sku}}" class="medicamentosStock">
-                    <th scope="row"><input class="form-control bg-light border-0" id="sku" name="sku{{medicamento.sku}}" type="text" value="{{medicamento.sku}}" readonly></th>
-                    <td><input class="form-control bg-light border-0" id="nombre" name="nombre{{medicamento.sku}}" type="text" value="{{medicamento.nombre}}" readonly></td>
-                    <td><input class="form-control bg-light border-0" id="sustancia" name="sustancia{{medicamento.sku}}" type="text" value="{{medicamento.sustancia_activa}}" readonly></td>
-                    <td><input class="form-control bg-light border-0" id="presentacion" name="presentacion{{medicamento.sku}}" type="text" value="{{medicamento.presentacion}}" readonly></td>
+                    <th scope="row"><input class="form-control bg-light border-0" id="sku" name="{{medicamento.sku}}" type="text" value="{{medicamento.sku}}" readonly></th>
+                    <td><input class="form-control bg-light border-0" id="nombre"  type="text" value="{{medicamento.nombre}}" readonly></td>
+                    <td><input class="form-control bg-light border-0" id="sustancia"  type="text" value="{{medicamento.sustancia_activa}}" readonly></td>
+                    <td><input class="form-control bg-light border-0" id="presentacion"  type="text" value="{{medicamento.presentacion}}" readonly></td>
                     <td>
                         <div class="input-group">
                             <input type="number" id="quantity" id="cantidad" name="cantidad{{medicamento.sku}}" min = "1" max="{{medicamento.cantidad}}" class="form-control input-number" value="1">
                         </div>
                     </td>
-                    <td class="d-flex">$ <input class="form-control bg-light border-0" name="precio{{medicamento.sku}}" type="text" value="{{medicamento.precio}}" readonly></td>
+                    <td class="d-flex">$ <input class="form-control bg-light border-0" type="text" value="{{medicamento.precio}}" readonly></td>
                     <td><button class="btn btn-primary" id="btn{{medicamento.sku}}" onclick='agregarATicket("{{medicamento.sku}}")'' type="button">Agregar a ticket</button></td>
                 </tr>
                 {% endfor %}
@@ -66,7 +66,7 @@
 
 
     <!-- Ticket-->
-    <form method="POST">
+    <form method="POST" action="">
         {% csrf_token %}
         <label for="exampleFormControlTextarea1" class="form-label">Ticket de compra</label>
         <div class="mb-3">
