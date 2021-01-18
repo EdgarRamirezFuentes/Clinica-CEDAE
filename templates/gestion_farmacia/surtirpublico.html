@@ -14,24 +14,25 @@
         <p class="display-4 text-primary text-center my-4">Surtir Receta Publico</p>
     </div>
     <div class="mb-3">
-        <label for="exampleFormControlTextarea1" class="form-label">Agregar medicamento a la lista</label>
+        <label for="exampleFormControlTextarea1" class="form-label">Buscar medicamento</label>
         <div class="input-group">
             <form class="row g-2">
                 <div class="col-sm-9">
-                    <input list="medSelect" name="medInput" class="w-100" id="medInput">
+                    <div class="input-group">
+                        <input list="medSelect" class="form-control" id="system-search" name="q" placeholder="" required>
+                    </div>
                     <datalist id="medSelect">
                         {% for medicamento in medicamentos %}
-                        <option value="{{medicamento.nombre}} {{medicamento.presentacion}}">
+                        <option value="{{medicamento.nombre}}">
                             {% endfor %}
                     </datalist>
                 </div>
-                <button class="btn btn-primary" type="button">Agregar a la Lista</button>
             </form>
         </div>
     </div>
     <label for="exampleFormControlTextarea1" class="form-label">Lista de Medicamentos</label>
     <div class="mb-3">
-        <table class="table">
+        <table class="table table-list-search">
             <thead>
                 <tr>
                     <th scope="col">ID</th>
@@ -47,15 +48,15 @@
                 {% for medicamento in medicamentos %}
                 <tr id="{{medicamento.sku}}" class="medicamentosStock">
                     <th scope="row"><input class="form-control bg-light border-0" id="sku" name="{{medicamento.sku}}" type="text" value="{{medicamento.sku}}" readonly></th>
-                    <td><input class="form-control bg-light border-0" id="nombre"  type="text" value="{{medicamento.nombre}}" readonly></td>
-                    <td><input class="form-control bg-light border-0" id="sustancia"  type="text" value="{{medicamento.sustancia_activa}}" readonly></td>
-                    <td><input class="form-control bg-light border-0" id="presentacion"  type="text" value="{{medicamento.presentacion}}" readonly></td>
+                    <td>{{medicamento.nombre}}</td>
+                    <td>{{medicamento.sustancia_activa}}</td>
+                    <td>{{medicamento.presentacion}}</td>
                     <td>
                         <div class="input-group">
                             <input type="number" id="quantity" id="cantidad" name="cantidad{{medicamento.sku}}" min = "1" max="{{medicamento.cantidad}}" class="form-control input-number" value="1">
                         </div>
                     </td>
-                    <td class="d-flex">$ <input class="form-control bg-light border-0" type="text" value="{{medicamento.precio}}" readonly></td>
+                    <td class="d-flex">$ {{medicamento.precio}}</td>
                     <td><button class="btn btn-primary" id="btn{{medicamento.sku}}" onclick='agregarATicket("{{medicamento.sku}}")'' type="button">Agregar a ticket</button></td>
                 </tr>
                 {% endfor %}
