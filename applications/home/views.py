@@ -4,6 +4,7 @@ from ..gestion_usuarios.models import Usuario
 from ..gestion_pacientes.models import Paciente
 from ..gestion_medicos.models import Medico
 from ..gestion_farmacia.models import Encargado_farmacia
+from ..gestion_recepcion.models import Recepcionista
 from django.contrib import messages
 import hashlib
 
@@ -54,6 +55,7 @@ class Login(TemplateView):
             usuario = None
             medico = None
             paciente = None
+            recepcionista = None
             try:
                 usuario = Usuario.objects.get(correo=str(correo[0]))
             except Usuario.DoesNotExist as ex:
@@ -79,6 +81,17 @@ class Login(TemplateView):
                         if usuario.contrasenia == contrasenia:
                             request.session['id_encargado'] = usuario.curp
                             return redirect('homefarmacia')
+                        else:
+                            messages.error(request, 'La contraseña ingresada no es correcta')
+                if str(tipo[0]) == 'recepcionista':
+                    try:
+                        recepcionista = Recepcionista.objects.get(empleado_id_id=usuario.curp)
+                    except Recepcionista.DoesNotExist as ex:
+                        messages.error(request, 'No existe un recepcionista con el correo electrónico ingresado')
+                    if recepcionista:
+                        if usuario.contrasenia == contrasenia:
+                            request.session['id_recepcionista'] = usuario.curp
+                            return redirect('homerecepcion')
                         else:
                             messages.error(request, 'La contraseña ingresada no es correcta')
                 #elif tipo == 'paciente':

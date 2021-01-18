@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'applications.gestion_farmacia',
     'applications.gestion_expediente',
     'applications.gestion_admin',
+    'applications.gestion_recepcion',
     # Third party apps
 ]
 
