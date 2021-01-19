@@ -11,89 +11,46 @@
 {% block content %}
 <div class="container">
     <div class="row">
-        <form class="w-100 border data-form rounded p-8 mt-5">
+        <p class="display-4 text-primary text-center w-100 my-2">Nueva cita</p>
+        <form class="w-100 border data-form rounded p-3 mt-5" method="POST" id="citaForm" name="citaForm">  
+            {% csrf_token %}
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
                         <div>
-                            <p class="display-4 text-primary text-center my-2">Nueva cita</p>
+                            <p class="display-4 text-primary text-center my-2">Datos de la cita</p>
                         </div>
                         <p class="font-weight-bold text-primary mt-3">Los campos con <span class="text-danger">*</span>
                             son obligatorios</p>
-                            <form method="get">
-                                <div class="input-group w-75">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id="">ID del paciente</span>
-                                    </div>
-                                    <input type="text" class="form-control mr-5">
-                                    <button type="submit" class="btn btn-primary">Buscar</button>
-                                </div>
-                            </form>
-                            <div class="mb-3"></div>
-                        <form>
-  <div class="form-row align-items-center">
-    <div class="col-auto">
-      <label class="sr-only" for="inlineFormInput">Name</label>
-      <input type="text" class="form-control mb-2" id="inlineFormInput" placeholder="correo">
-    </div>
-    <div class="col-auto">
-      <label class="sr-only" for="inlineFormInputGroup">Username</label>
-      <div class="input-group mb-2">
-        <div class="input-group-prepend">
-          <div class="input-group-text">@</div>
-        </div>
-        <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="gmail.com">
-      </div>
-    </div>
-    <div class="col-auto">
-      <div class="form-check mb-2">
-        <input class="form-check-input" type="checkbox" id="autoSizingCheck">
-        <label class="form-check-label" for="autoSizingCheck">
-          Enviar confirmación por este correo
-        </label>
-      </div>
-    </div>
-  </div>
-</form>
                         <div class="form-group">
-                            <label for="exampleFormControlInput1">Sucursal <span class="text-danger font-weight-bold ml-5">*</span></label>
-                            <select class="form-control" id="exampleFormControlSelect1">
-                                <option>CEDAE Satélite</option>
-                                <option>CEDAE Roma</option>
+                            <p class="text-danger externoLabel" id="curpError"></p>
+                            <label>CURP  del paciente<span class="text-danger font-weight-bold ml-5">*</span></label>
+                            <input type="text" class="form-control" id="curp" name="curp">
+                        </div>
+                        <div class="form-group">
+                            <p class="text-danger externoLabel" id="fechaError"></p>
+                            <label>Fecha de la cita<span class="text-danger font-weight-bold ml-5">*</span></label>
+                            <input type="date" class="form-control" id="fecha" name="fecha">
+                        </div>
+                        <div class="form-group">
+                            <p class="text-danger externoLabel" id="horaError"></p>
+                            <label>Hora de la cita<span class="text-danger font-weight-bold ml-5">*</span></label>
+                            <input type="time" class="form-control" id="hora" name="hora">
+                        </div>
+                        <div class="form-group">
+                            <p class="text-danger externoLabel" id="costoError"></p>
+                            <label>Costo<span class="text-danger font-weight-bold ml-5">*</span></label>
+                            <input type="text" class="form-control" id="costo" name="costo">
+                        </div>
+                        <div class="form-group">
+                            <label>Médico<span class="text-danger font-weight-bold ml-5">*</span></label>
+                            <select name="medico" class="form-control" id="medico">
+                                {% for medico in medicos %}
+                                <option value="{{medico.empleado_id_id}}">{{medico.empleado_id.usuario_curp.apellidoPaterno}} {{medico.empleado_id.usuario_curp.apellidoMaterno}} {{medico.empleado_id.usuario_curp.nombre}}</option>
+                                {% endfor %}
                             </select>
                         </div>
-                        <div class="form-group">
-                            <label for="exampleFormControlInput1">Doctor <span class="text-danger font-weight-bold ml-5">*</span></label>
-                            <select class="form-control" id="exampleFormControlSelect1">
-                                <option>Dra. Jatziri Chávez</option>
-                                <option>Dr. Roberto Sánchez</option>
-                                <option>Dra. Julieta Venegas</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleFormControlInput1">Fecha de la cita <span class="text-danger font-weight-bold ml-5">*</span></label>
-                            <input type="date" class="form-control" id="exampleFormControlInput1">
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleFormControlInput1">Hora <span class="text-danger font-weight-bold ml-5">*</span></label>
-                            <select class="form-control" id="exampleFormControlSelect1">
-                                <option>-</option>
-                                <option>9:00</option>
-                                <option>11:00</option>
-                                <option>13:00</option>
-                                <option>14:00</option>
-                            </select>
-                        </div>
-                        <div class="form-group d-flex justify-content-center">
-                            <button type="button" onclick="primera()" class="btn-lg w-50 btn-primary mt-5 p-2">Registrar
-                                cita</button>
-                        </div>
-                        <div class="form-group d-flex justify-content-center">
-                            <button type="button" onclick="segunda()" class="btn-lg w-50 btn-danger mt-5 p-2">Prueba primera cita</button>
-                        </div>
-                        <div class="form-group d-flex justify-content-center">
-                            <button type="button" onclick="camposIncompletos()" class="btn-lg w-50 btn-warning mt-5 p-2">Prueba campos incompletos</button>
-                        </div>
+                        <button type="submit" class="btn btn-primary">Agendar cita</button>
                     </div>
                 </div>
             </div>
