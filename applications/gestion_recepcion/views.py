@@ -37,7 +37,7 @@ class pago(ListView):
             consu = Consulta.objects.get(id = listaSKU[0])
 
             ticket = Ticket(
-                    medicamentos = listaSKU[0] + '. Consulta',
+                    medicamentos = '1. Consulta id: ' + listaSKU[0],
                     costo_total = consu.costo,
                     precioProducto = consu.costo,
                     fecha_expedicion = datetime.now(),
