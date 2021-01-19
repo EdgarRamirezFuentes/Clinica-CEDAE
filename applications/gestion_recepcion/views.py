@@ -4,8 +4,10 @@ from django.contrib import messages
 import datetime
 from datetime import date, datetime
 from ..gestion_pacientes.models import Consulta
+from ..gestion_pacientes.models import Cita
 from ..gestion_farmacia.models import Ticket
-
+from ..gestion_pacientes.models import Paciente
+from ..gestion_medicos.models import Medico
 
 class Home(TemplateView):
     template_name = 'gestion_recepcion/home.html'
@@ -18,7 +20,38 @@ class nueva_cita(TemplateView):
 
 class agenda(TemplateView):
     template_name ='gestion_recepcion/agenda.html'
+    
+    def get_context_data(self, **kwargs):
+        context = super(agenda, self).get_context_data(**kwargs)
+        context['citas'] = Cita.objects.filter(fecha__gte=date.today()).order_by('fecha', 'hora_inicio')
+        context['medicos'] = Medico.objects.all().order_by('empleado_id__usuario_curp__apellidoPaterno')
+        return context
 
+class BuscarCita(ListView):
+    template_name = 'gestion_recepcion/agenda.html'
+    context_object_name = 'citas'
+    
+    def get_context_data(self, **kwargs):
+        context = super(BuscarCita, self).get_context_data(**kwargs)
+        context['medicos'] = Medico.objects.all().order_by('empleado_id__usuario_curp__apellidoPaterno')
+        return context
+    
+    def get_queryset(self):
+            medico = self.request.GET.get('medico', '')
+            paciente = self.request.GET.get('curp', '')
+            if len(paciente) == 0:
+                queryset = Cita.objects.filter(
+                    medico_id_id = medico,
+                    fecha__gte = date.today()
+                ).order_by('fecha', 'hora_inicio')
+            else:
+                queryset = Cita.objects.filter(
+                    medico_id_id = medico,
+                    paciente_id_id = paciente,
+                    fecha__gte = date.today()
+                ).order_by('fecha', 'hora_inicio')
+            return queryset
+    
 class ver_cita(TemplateView):
     template_name ='gestion_recepcion/ver_cita.html'
 

@@ -6,7 +6,8 @@
 {% endblock title %}
 
 {% block styles %}
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/fullcalendar@5.4.0/main.min.css,npm/fullcalendar@5.4.0/main.min.css">
+<link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/combine/npm/fullcalendar@5.4.0/main.min.css,npm/fullcalendar@5.4.0/main.min.css">
 <link rel="stylesheet" href="{% static 'gestion_recepcion/styles/agenda.css' %}">
 {% endblock%}
 
@@ -14,62 +15,74 @@
 <div class="container">
 
     <div>
-        <p class="display-4 text-primary text-center my-2">Agenda de Citas</p>
+        <p class="display-4 text-primary text-center my-4">Agenda de Citas</p>
     </div>
-        <p class="lead text-center">
-            La siguiente tabla muestra proximas citas
-        </p>
-        
-        <hr />
-    
-        <div class="agenda">
-            <div class="table-responsive">
-                <table class="table table-condensed table-bordered">
-                    <form method="get">
-                        <div class="input-group w-75">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="">Nombre del paciente</span>
-                            </div>
-                            <input type="text" class="form-control mr-5">
-                            <button type="submit" class="btn btn-primary">Buscar</button>
+    <div class="agenda">
+        <div class="table-responsive">
+            <table class="table table-condensed table-bordered">
+                <form method="get" action="{% url 'buscarCita' %}">
+                    <div class="input-group w-100">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="">CURP del paciente</span>
                         </div>
-                    </form>
-                    <div class="mb-3"></div>
-                    <thead>
-                        <tr>
-                            <th>Fecha</th>
-                            <th>Hora</th>
-                            <th>Cita</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Single event in a single day -->
-                        <tr>
-                            <td class="agenda-date" class="active" rowspan="1">
-                                <div class="dayofmonth">22</div>
-                                <div class="dayofweek">Martes</div>
-                                <div class="shortdate text-muted">Diciembre, 2020</div>
-                            </td>
-                            <td class="agenda-time">
-                                5:30 AM
-                            </td>
-                            <td class="agenda-events">
-                                <div class="agenda-event">
-                                    <i class="glyphicon glyphicon-repeat text-muted" title="Repeating event"></i> 
-                                    Edgar Alejandro Ramírez Fuentes
-                                </div>
-                            </td>
-                            <td>
-                                <a href="{% url 'ver_cita'%}">
-                                    <button class="btn btn-warning" type="button">Ver Cita</button>
-                                </a>
-                                <button class="btn btn-primary" type="button">Modificar Cita</button>
-                                <button type="button" onclick="eliminar()" class="btn btn-danger" type="button">Eliminar Cita</button>
-                            </td>
-                        </tr>
-                        
-                        <!-- Multiple events in a single day (note the rowspan) -->
+                        <input type="text" class="form-control mr-5" name="curp" id="curp">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="">Médico</span>
+                        </div>
+                        <select name="medico" id="medico">
+                            {% for medico in medicos %}
+                                <option value="{{medico.empleado_id_id}}">{{medico.empleado_id.usuario_curp.apellidoPaterno}} {{medico.empleado_id.usuario_curp.apellidoMaterno}} {{medico.empleado_id.usuario_curp.nombre}}</option>
+                            {% endfor %}
+                        </select>
+                    
+                        <button type="submit" class="btn btn-primary ml-5">Buscar</button>
+                        <a href="{% url 'agenda' %} " class="btn btn-primary ml-1">Listar todas</a>
+                    </div>
+                </form>
+                <div class="mb-3"></div>
+                <thead>
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Hora</th>
+                        <th>Cita</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Single event in a single day -->
+
+                    {% for cita in citas %}
+                    <tr>
+                        <td class="agenda-date" class="active" rowspan="1">
+                            <div class="dayofmonth">{{cita.fecha.day}}</div>
+                            <div>{{cita.fecha|date:"M"}}, {{cita.fecha|date:"Y"}}</div>
+                        </td>
+                        <td class="agenda-time">
+                            {{cita.hora_inicio}}-{{cita.hora_fin}}
+                        </td>
+                        <td class="agenda-events">
+                            <div class="agenda-event">
+                                Paciente: {{cita.paciente_id.idUsuario.apellidoPaterno}}
+                                {{cita.paciente_id.idUsuario.apellidoMaterno}} {{cita.paciente_id.idUsuario.nombre}}
+                                <br>
+                                Médico: {{cita.medico_id.empleado_id.usuario_curp.apellidoPaterno}}
+                                {{cita.medico_id.empleado_id.usuario_curp.apellidoMaterno}}
+                                {{cita.medico_id.empleado_id.usuario_curp.nombre}}
+                            </div>
+                        </td>
+                        <td>
+                            <a href="{% url 'ver_cita'%}">
+                                <button class="btn btn-warning" type="button">Ver Cita</button>
+                            </a>
+                            <button class="btn btn-primary" type="button">Modificar Cita</button>
+                            <button type="button" onclick="eliminar()" class="btn btn-danger" type="button">Eliminar
+                                Cita</button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+
+
+                    <!-- Multiple events in a single day (note the rowspan) 
                         <tr>
                             <td class="agenda-date" class="active" rowspan="3">
                                 <div class="dayofmonth">23</div>
@@ -125,18 +138,20 @@
                                 <button class="btn btn-primary" type="button">Modificar Cita</button>
                                 <button type="button" onclick="eliminar()" class="btn btn-danger" type="button">Eliminar Cita</button>
                             </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+                        </tr>-->
+                </tbody>
+            </table>
         </div>
     </div>
-    
+</div>
+
 {% endblock %}
 
 {% block scripts %}
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-<script src="https://cdn.jsdelivr.net/combine/npm/fullcalendar@5.4.0,npm/fullcalendar@5.4.0/main.min.js,npm/fullcalendar@5.4.0/locales-all.min.js,npm/fullcalendar@5.4.0/locales-all.min.js"></script>
+<script
+    src="https://cdn.jsdelivr.net/combine/npm/fullcalendar@5.4.0,npm/fullcalendar@5.4.0/main.min.js,npm/fullcalendar@5.4.0/locales-all.min.js,npm/fullcalendar@5.4.0/locales-all.min.js">
+</script>
 <script src="{% static 'gestion_recepcion/scripts/calendar.js'%}"></script>
 <script src="{% static 'gestion_recepcion/scripts/agenda.js'%}"></script>
 {% endblock %}
