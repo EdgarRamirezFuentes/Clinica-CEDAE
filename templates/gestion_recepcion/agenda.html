@@ -72,7 +72,7 @@
                         </td>
                         <td>
                             <a class="btn btn-primary" href="{% url 'modificarCita' cita.id %}">Modificar Cita</a>
-                            <a type="button" onclick="eliminar()" class="btn btn-danger" type="button">Eliminar Cita</a>
+                            <a href="{% url 'eliminarCita' cita.id %}" class="btn btn-danger">Eliminar Cita</a>
                         </td>
                     </tr>
                     {% endfor %}

@@ -150,4 +150,10 @@ class ModificarCita(TemplateView):
             consulta.save()
             
         return redirect('agenda')
-    pass
+    
+class EliminarCita(TemplateView):
+    template_name = "gestion_recepcion/agenda.html"
+    def get(self, *args, **kwargs):
+        cita = Cita.objects.get(pk=self.kwargs.get('pk'))
+        cita.delete()
+        return redirect('agenda')
