@@ -116,3 +116,38 @@ class pago(ListView):
             except Exception as ex:
                 messages.error(request, 'Hubo un error al tratar de registrar el ticket', 'error')
         return redirect('ticket')
+
+class ModificarCita(TemplateView):
+    template_name = 'gestion_recepcion/modificar-cita.html'
+    
+    def get_context_data(self, **kwargs):
+        context = super(ModificarCita, self).get_context_data(**kwargs)
+        context['medicos'] = Medico.objects.all()
+        context['cita'] = Cita.objects.get(pk = self.kwargs.get('pk'))
+        context['consulta'] = Consulta.objects.get(cita_id_id = self.kwargs.get('pk'))
+        return context
+
+    def post(self, request, *args, **kwargs):
+        if request.method == 'POST':
+            formato = "%H:%M:%S"
+            curpPaciente = request.POST['curp']
+            costo = request.POST['costo']
+            fecha = request.POST['fecha']
+            medico = Medico.objects.get(empleado_id_id = request.POST['medico'])
+            hora =  request.POST['hora'] + ":00"
+            h1 = datetime.strptime(hora, formato)
+            paciente = Paciente.objects.get(idUsuario_id=curpPaciente)
+            expediente = Expediente.objects.get(paciente_curp = paciente)
+            horaFin = str(h1 + timedelta(minutes=30)).split(" ")[1]
+            cita = Cita.objects.get(pk = self.kwargs.get('pk'))
+            cita.fecha = fecha
+            cita.medico_id = medico
+            cita.hora_inicio = hora
+            cita.hora_fin = horaFin
+            cita.save()
+            consulta = Consulta.objects.get(cita_id_id = cita.id)
+            consulta.costo = costo
+            consulta.save()
+            
+        return redirect('agenda')
+    pass

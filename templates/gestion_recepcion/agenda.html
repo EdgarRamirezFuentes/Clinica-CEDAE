@@ -71,12 +71,8 @@
                             </div>
                         </td>
                         <td>
-                            <a href="{% url 'ver_cita'%}">
-                                <button class="btn btn-warning" type="button">Ver Cita</button>
-                            </a>
-                            <button class="btn btn-primary" type="button">Modificar Cita</button>
-                            <button type="button" onclick="eliminar()" class="btn btn-danger" type="button">Eliminar
-                                Cita</button>
+                            <a class="btn btn-primary" href="{% url 'modificarCita' cita.id %}">Modificar Cita</a>
+                            <a type="button" onclick="eliminar()" class="btn btn-danger" type="button">Eliminar Cita</a>
                         </td>
                     </tr>
                     {% endfor %}
