@@ -1,0 +1,80 @@
+{% extends 'gestion_paciente/base.html' %}
+{% load static %}
+
+{% block title %}
+.: Perfil de Usuario :.
+{% endblock title %}
+
+{% block styles %}
+
+{% endblock styles %}
+
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <p class="display-4 text-center text-primary mt-5">Perfil del Paciente</p>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-5 bg-primary border rounded p-3">
+                    <div class="profile-picture d-flex justify-content-center">
+                        <img src="{% static 'gestion_medicos/img/Pugberto.jpeg'%}" class="rounded-circle">
+                    </div>
+                    <div class="profile-data mt-7">
+                        <p class="h4 mb-1 font-weight-bold text-light">CURP</p>
+                        <p class="h5 text-light">{{paciente.idUsuario.curp}}</p>
+                        <div class="dropdown-divider"></div>
+                        <p class="h4 mb-1 font-weight-bold text-light">Nombre</p>
+                        <p class="text-capitalize h5 font-weight-bold text-light">{{paciente.idUsuario.apellidoPaterno}} {{paciente.idUsuario.apellidoMaterno}} {{paciente.idUsuario.nombre}}</p>
+                        <div class="dropdown-divider"></div>
+                        <p class="h4 mb-1 font-weight-bold text-light">Teléfono particular</p>
+                        <p class="h5 font-weight-bold text-light">{{paciente.idUsuario.telefonoFijo}}</p>
+                        <div class="dropdown-divider"></div>
+                        <p class="h4 mb-1 font-weight-bold text-light">Teléfono celular</p>
+                        <p class="h5 font-weight-bold text-light">{{paciente.idUsuario.telefonoCelular}}</p>
+                        <div class="dropdown-divider"></div>
+                        <p class="h4 mb-1 font-weight-bold text-light">Correo electrónico</p>
+                        <p class="h5 font-weight-bold text-light">{{paciente.idUsuario.correo}}</p>
+
+                    </div>
+                </div>
+                <div class="col-md-5 border border-primary rounded py-5 d-flex flex-column">
+
+                    <div class="datos d-flex justify-content-between flex-column">
+                        <p class=" mb-1 font-weight-bold text-primary">RFC</p>
+                        <p class=" text-primary">{{paciente.idUsuario.rfc}}</p>
+                        <div class="dropdown-divider"></div>
+                        <p class=" mb-1 font-weight-bold text-primary">Género</p>
+                        <p class=" text-primary">{{paciente.idUsuario.sexo}}</p>
+                        <div class="dropdown-divider"></div>
+                        <p class=" mb-1 font-weight-bold text-primary">País de nacimiento</p>
+                        <p class=" text-primary">{{paciente.idUsuario.nacionalidad}}</p>
+                        <div class="dropdown-divider"></div>
+                        <p class=" mb-1 font-weight-bold text-primary">Domicilio</p>
+                        <p class=" text-primary">{{paciente.idUsuario.calle}} Int. {{paciente.idUsuario.numeroInterior}} Ext. {{paciente.idUsuario.numeroExterior}}, {{paciente.idUsuario.colonia}}, {{paciente.idUsuario.alcaldia}}, {{paciente.idUsuario.estado}}, {{paciente.idUsuario.codigoPostal}}</p>
+                        <div class="dropdown-divider"></div>
+                        <p class=" mb-1 font-weight-bold text-primary">Estado civil</p>
+                        <p class=" text-primary">{{paciente.idUsuario.estadoCivil}}</p>
+                        <div class="dropdown-divider"></div>
+                        <p class=" mb-1 font-weight-bold text-primary">Nombre contacto de emergencia</p>
+                        <p class=" text-primary">{{paciente.idUsuario.apellidoPaternoContactoEmergencia}} {{paciente.idUsuario.apellidoMaternoContactoEmergencia}} {{paciente.idUsuario.nombreContactoEmergencia}}</p>
+                        <div class="dropdown-divider"></div>
+                        <p class=" mb-1 font-weight-bold text-primary">Teléfono contacto de emergencia</p>
+                        <p class=" text-primary">{{paciente.idUsuario.estadoCivil}}</p>
+                    </div>
+                    <div class="botones mt-5">
+                        <div class="d-flex mb-4">
+                            <div class="col-md-6"><a href="{% url 'medicalRecordMedico' paciente.idUsuario %}"><button class="w-100 text-center btn btn-primary">Ver expediente</button></a></div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>  
+</div>
+{% endblock content %}
+
+
+{% block scripts %}
+
+{% endblock scripts %}

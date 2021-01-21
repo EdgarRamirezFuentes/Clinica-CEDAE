@@ -1,0 +1,170 @@
+{% extends 'gestion_paciente/base.html' %}
+{% load static %}
+
+{% block title %}
+.: Expediente Personal :.
+{% endblock title %}
+
+{% block styles %}
+<script src="{% static 'gestion_paciente/scripts/alertas.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+{% endblock %}
+
+{% block content %}
+{% if messages %}
+    {% for message in messages %}
+        <script>message("{{message}}", "{{message.tags}}");</script>  
+    {% endfor %}
+{% endif %}
+<div class="container">
+    <div class="row">
+        <p class="text-center w-100 mt-5 text-primary display-4">Historia clínica dermatologica</p>
+        <div class="bg-primary w-100 text-light d-flex justify-content-around py-3">
+            <p class="display-5">{{expediente.paciente_curp.idUsuario.apellidoPaterno}} {{expediente.paciente_curp.idUsuario.apellidoMaterno}} {{expediente.paciente_curp.idUsuario.nombre}}</p>
+            <p class="display-5">ID Expediente: {{expediente.paciente_curp.idUsuario.curp}}</p>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div>
+                        <p class="display-4 text-primary text-center my-4">Datos del paciente</p>
+                    </div>
+                    <div class="bg-light w-100 text-dark d-flex justify-content-around py-3">
+                        <label>Fecha de nacimiento: {{expediente.paciente_curp.idUsuario.fechaNacimiento}} </label>
+                        <label>Género: {{expediente.paciente_curp.idUsuario.sexo}} </label>
+                    </div>
+                    <div class="bg-light w-100 text-dark d-flex justify-content-around py-3">
+                        <label>Teléfono particular: {{expediente.paciente_curp.idUsuario.telefonoFijo}}</label>
+                        <label>Teléfono celular: {{expediente.paciente_curp.idUsuario.telefonoCelular}} </label>
+                        <label>País de nacimiento: {{expediente.paciente_curp.idUsuario.nacionalidad}} </label>
+                    </div>
+                    <div class="bg-light w-100 text-dark d-flex justify-content-around py-3">
+                        <label>RFC: {{expediente.paciente_curp.idUsuario.rfc}}</label>
+                        <label>Correo electrónico: {{expediente.paciente_curp.idUsuario.correo}}</label>
+                    </div>
+                    <div class="bg-light w-100 text-dark d-flex justify-content-around py-3">
+                        <label>Domicilio: {{expediente.paciente_curp.idUsuario.calle}} Int. {{expediente.paciente_curp.idUsuario.numeroInterior}} Ext. {{expediente.paciente_curp.idUsuario.numeroExterior}}, {{expediente.paciente_curp.idUsuario.colonia}}, {{expediente.paciente_curp.idUsuario.alcaldia}}, {{expediente.paciente_curp.idUsuario.estado}}, {{expediente.paciente_curp.idUsuario.codigoPostal}}</label>
+                    </div>
+                    <div class="bg-light w-100 text-dark d-flex justify-content-around py-3">
+                        <label>Estado civil: {{expediente.paciente_curp.idUsuario.estadoCivil}} </label>
+                    </div>
+                    <div class="bg-light w-100 text-dark d-flex justify-content-around py-3">
+                        <label>Nombre contacto de emergencia: {{expediente.paciente_curp.idUsuario.apellidoPaternoContactoEmergencia}} {{expediente.paciente_curp.idUsuario.apellidoMaternoContactoEmergencia}} {{expediente.paciente_curp.idUsuario.nombreContactoEmergencia}} </label>
+                        <label>Télefono celular contacto de emergencia: {{expediente.paciente_curp.idUsuario.telefonoContactoEmergencia}} </label>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div>
+                        <p class="display-4 text-primary text-center my-4">Antecedentes médicos</p>
+                    </div>
+                    <div class="bg-light w-100 text-dark d-flex flex-column justify-content-around py-3">
+                        <label class="text-center w-100">Alergias </label>
+                        <p class="text-justify mx-3">{{expediente.alergias}}</p>
+                    </div>
+                    <div class="bg-light w-100 text-dark d-flex flex-column justify-content-around py-3">
+                        <label class="text-center w-100">Antecedentes personales</label>
+                        <p class="text-justify mx-3">{{expediente.antecedentes_personales}}</p>
+                    </div>
+                    <div class="bg-light w-100 text-dark d-flex flex-column justify-content-around py-3">
+                        <label class="text-center w-100">Antecedentes familiares</label>
+                        <p class="text-justify mx-3">{{expediente.antecedentes_familiares}}</p>
+                    </div>
+                    <div>
+                        <p class="display-4 text-primary text-center my-4">Padecimiento actual</p>
+                    </div>
+                    <div class="bg-light w-100 text-dark d-flex justify-content-around py-3 ">
+                        <label class="mx-3 text-justify">Padecimiento: {{expediente.padecimiento_actual}} </label>
+                            <div class="col-md-3 align-items-center d-flex">
+                                <img src="{% static 'gestion_medicos/img/diagrama_corporal_prueba.jpeg'%}"
+                                    class="image-fluid" alt="">
+                            </div>
+                    </div>
+                    <div>
+                        <p class="display-4 text-primary text-center my-4">Último examen físico</p>
+                    </div>
+                    <div class="bg-light w-100 text-dark d-flex justify-content-around py-3">
+                        <label>Temperatura: {{expediente.temperatura}} °C</label>
+                        <label>Frecuencia cardiaca: {{expediente.frecuencia_cardiaca}} lpm</label>
+                        <label>Frecuencia respiratoria: {{expediente.frecuencia_respiratoria}} rpm</label>
+                    </div>
+                    <div class="bg-light w-100 text-dark d-flex justify-content-around py-3">
+                        <label>Presión arterial: {{expediente.presion_arterial}} mmHg</label>
+                        <label>Oxigenación: {{expediente.saturacion_oxigeno}} %</label>
+                    </div>
+                    <div class="bg-light w-100 text-dark d-flex justify-content-around py-3">
+                        <label>Altura: {{expediente.altura}} mts</label>
+                        <label>Peso: {{expediente.peso}} kg</label>
+                        <label>IMC: {{expediente.imc}} 
+                            {% if expediente.imc < 18.5 %}
+                                <label class="text-primary">(Bajo de peso)</label></label>
+                            {% elif expediente.imc >= 18.5 and expediente.imc < 24.9 %} 
+                                <label class="text-success">(Normal)</label></label>
+                            {% elif expediente.imc > 25 and expediente.imc < 29.9 %}
+                                <label class="text-warning">(Sobrepeso)</label></label>
+                            {% elif expediente.imc > 30 and expediente.imc < 34.9 %}
+                                <label class="text-danger">(Obesidad)</label></label>
+                            {% else %}
+                                <label class="text-danger">(Obesidad mórbida)</label></label> 
+                            {% endif %}
+                                
+                    </div>
+                    <div class="bg-light w-100 text-dark d-flex justify-content-around py-3">
+                        <label>Examen físico</label>
+                        
+                    </div>
+                    <div class="bg-light w-100 text-dark d-flex justify-content-around">
+                        <label class="mx-3 text-justify">{{expediente.examen_fisico}}</label>
+                    </div>
+                    <div>
+                        <p class="display-4 text-primary text-center my-4">Evaluación</p>
+                    </div>
+                    <div class="bg-light w-100 text-dark d-flex justify-content-around py-3">
+                        <label class="mx-3 text-justify">Impresión diagnóstica: {{expediente.impresion_diagnostica}} </label>
+                    </div>
+                    <div>
+                        <p class="display-4 text-primary text-center my-4">Observaciones</p>
+                    </div>
+                    <div class="bg-light w-100 text-dark d-flex justify-content-around py-3">
+                        <label>Nota:  </label>
+                    </div>
+                    <div>
+                        <p class="display-4 text-primary text-center my-4">Citas previas</p>
+                    </div>
+                    {% for cita in citas %}
+                        <li class="list-group-item">
+                            <p>Nombre del medico: {{cita.medico_id.empleado_id.usuario_curp.nombre }} {{cita.medico_id.empleado_id.usuario_curp.apellidoPaterno }} {{cita.medico_id.empleado_id.usuario_curp.apellidoMaterno }}</p>
+                            <p>Hora inicio: {{cita.hora_inicio}}</p>
+                            <p>Hora término: {{cita.hora_fin}}</p>
+                            <p>Fecha: {{cita.fecha}}</p>
+                        </li>
+                    {% endfor %}
+                    <div>
+                        <p class="display-4 text-primary text-center my-4">Últimas recetas</p>
+                    </div>
+                    {% for consulta in consultas %}
+                        {% for receta in recetas %}
+                            {% if receta.consulta_id == consulta %}
+                                <div class="bg-light w-100 text-dark d-flex justify-content-around py-3">
+                                    <label>Receta #{{receta.pk}} </label>
+                                </div>
+                                <div class="bg-light w-100 text-dark d-flex justify-content-around py-3">
+                                    <label>Atendió: Dr {{receta.medico_id.empleado_id.usuario_curp.nombre}} {{receta.medico_id.empleado_id.usuario_curp.apellidoPaterno}} {{receta.medico_id.empleado_id.usuario_curp.apellidoMaterno}}</label>
+                                </div>
+                                <div class="bg-light w-100 text-dark justify-content-middle py-3">
+                                    <p class="mx-3 text-center" > Medicamentos: {{receta.medicamentos}}</p>
+                                    <p class="mx-3 text-center"> Indicaciones: {{receta.indicacion_medicamentos}}</p>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}

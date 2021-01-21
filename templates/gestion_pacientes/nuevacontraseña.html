@@ -1,0 +1,54 @@
+{% extends 'gestion_paciente/base.html' %}
+{% load static %}
+
+{% block title %}
+.: Nueva Contraseña :.
+{% endblock title %}
+
+{% block styles %}
+
+{% endblock styles %}
+
+
+{% block content %}
+<div class="container">
+    <p class="text-center display-6 text-primary mt-5">Nueva Contraseña</p>
+    <div class="mb-5"></div>
+    <div class="container">
+        <div class="row justify-content-center">
+        <div class="col-sm-6 main-section">
+          <div class="modal-content">
+            <div class="col-3 user-img">
+              <img src="{% static 'home/img/CEDAE_logo.jpeg' %}">
+            </div>
+          </div>
+          <div class="mb-3"></div>
+            <form class="col-12" method="POST" id="iniciarSesionForm" name="iniciarSesionForm"> 
+              <label for="inputPassword5" class="form-label">Ingrese su nueva contraseña</label>
+              <input type="password" id="inputPassword5" class="form-control" aria-describedby="passwordHelpBlock">
+              <div id="passwordHelpBlock" class="form-text">
+              Su contraseña debe tener entre 8 y 20 caracteres, contener letras y números, y no debe contener espacios, caracteres especiales ni emoji.
+              </div>
+              <div class="mb-3"></div>
+              <label for="inputPassword5" class="form-label">Confirme su nueva contraseña</label>
+              <input type="password" id="inputPassword5" class="form-control" aria-describedby="passwordHelpBlock">
+              <div id="passwordHelpBlock" class="form-text">
+              Su contraseña debe tener entre 8 y 20 caracteres, contener letras y números, y no debe contener espacios, caracteres especiales ni emoji.
+              </div>
+              <div class="mb-5"></div>
+              <div class="container">
+                <div class="row justify-content-end">
+                  <div class="col-5"><button type="button" onclick="validarCredenciales()" id="iniciarSesionbtn" class="btn btn-primary">Guardar contraseña</button></div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+
+{% block scripts %}
+
+{% endblock scripts %}

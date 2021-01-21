@@ -1,0 +1,47 @@
+{% extends 'gestion_paciente/base.html' %}
+{% load static %}
+
+{% block title %}
+.: Modificar Contraseña :.
+{% endblock title %}
+
+{% block styles %}
+
+{% endblock styles %}
+
+
+{% block content %}
+<div class="container">
+    <p class="text-center display-6 text-primary mt-5">Modificar Contraseña</p>
+    <div class="mb-5"></div>
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-sm-6 main-section">
+          <div class="modal-content">
+            <div class="col-1 user-img">
+              <img src="{% static 'home/img/CEDAE_logo.jpeg' %}">
+            </div>
+          </div>
+            <form class="col-12" method="POST" id="iniciarSesionForm" name="iniciarSesionForm"> 
+                <p class="fs-4 text-center">Edgar Alejandro Fuentes Ramirez</p>
+              <label for="inputPassword5" class="form-label">Para continuar ingrese su contraseña actual</label>
+              <input type="password" id="inputPassword5" class="form-control" aria-describedby="passwordHelpBlock">
+              <div class="mb-3"></div>
+              <label for="inputPassword5" class="form-label">Ingresa nuevamente su contraseña</label>
+              <input type="password" id="inputPassword5" class="form-control" aria-describedby="passwordHelpBlock">
+              <div class="mb-5"></div>
+              <div class="row">
+                <div class="col-md-5"><a href="#" class="text-start-decoration-none"> ¿Olvidaste tu contraseña? </a></div>
+                <div class="col-md-3 offset-md-4"><button type="button" onclick="validarCredenciales()" id="iniciarSesionbtn" class="btn btn-primary">Siguiente</button></div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+</div>
+{% endblock content %}
+
+
+{% block scripts %}
+
+{% endblock scripts %}
