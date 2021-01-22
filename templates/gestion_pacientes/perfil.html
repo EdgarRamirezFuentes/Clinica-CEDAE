@@ -1,4 +1,4 @@
-{% extends 'gestion_paciente/base.html' %}
+{% extends 'gestion_pacientes/base.html' %}
 {% load static %}
 
 {% block title %}
@@ -63,9 +63,18 @@
                         <p class=" text-primary">{{paciente.idUsuario.estadoCivil}}</p>
                     </div>
                     <div class="botones mt-5">
-                        <div class="d-flex mb-4">
-                            <div class="col-md-6"><a href="{% url 'medicalRecordMedico' paciente.idUsuario %}"><button class="w-100 text-center btn btn-primary">Ver expediente</button></a></div>
+                        <div class="d-flex mb-12">
+                            <div class="col-md-6">
+                                <a href="{% url 'medicalRecord' request.session.id_paciente %}">
+                                    <button class="w-100 text-center btn btn-primary">Ver expediente</button>
+                                </a>
                             </div>
+                            <div class="col-md-6">
+                                <a href="{% url 'changePassword' %}">
+                                    <button class="w-100 text-center btn btn-secondary">Cambiar contraseña</button>
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

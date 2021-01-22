@@ -34,10 +34,8 @@
             <div class="collapse navbar-collapse justify-content-center" id="navbarCollapse">
                 <div class="navbar-nav d-flex w-100 pr-5 justify-content-between">
                     <a href="{% url 'homePaciente' %}" class="text-center nav-item nav-link text-dark">Inicio</a>
-                    <a href="{% url 'homePaciente' %}" class="text-center nav-item nav-link text-dark">Ver perfil</a>
-                    <a href="{% url 'homePaciente'  %}" class="text-center nav-item nav-link text-dark">Ver expediente</a>
-                    <a href="{% url 'homePaciente'%}" class="text-center nav-item nav-link text-dark" tabindex="-1">Modificar contraseña</a>
-                    <a href="{% url 'logout' %}" class="text-center nav-item nav-link text-dark">Cerrar sesión&oacute;n</a>
+                    <a href="{% url 'patientProfilePatient' request.session.id_paciente %}" class="text-center nav-item nav-link text-dark">Ver perfil</a>
+                    <a href="{% url 'logout' %}" class="text-center nav-item nav-link text-dark">Cerrar sesi&oacute;n</a>
                     <div class="nav-item avatar  ml-5">
                         <img src="{% static 'gestion_medicos/img/Pugberto.jpeg' %}" class="rounded-circle z-depth-0"
                             alt="avatar image" height="35">

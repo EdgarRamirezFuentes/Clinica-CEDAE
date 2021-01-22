@@ -57,37 +57,20 @@
 </div>
 <div class="container mt-5">
     <div class="row flex-column">
-        <p class="text-center text-primary display-4 my-5 text-weight-bolder">Próximas Citas</p>
+        <p class="text-center text-primary display-4 my-5 text-weight-bolder">Citas</p>
         <div class="d-flex">
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <ul class="list-group">
-                    <li class="list-group-item active text-center">Usuario registrado</li>
+                    <li class="list-group-item active text-center">Próximas citas</li>
                     {% for cita in citas %}
                         <li class="list-group-item">
                             <p>ID: {{cita.paciente_id.idUsuario.curp}}</p>
-                            <p>Nombre paciente: {{cita.paciente_id.idUsuario.nombre }} {{cita.paciente_id.idUsuario.apellidoPaterno }} {{cita.paciente_id.idUsuario.apellidoMaterno }}</p>
+                            <p>Nombre médico: {{cita.medico_id.empleado_id.usuario_curp.nombre}} {{cita.medico_id.empleado_id.usuario_curp.apellidoPaterno }} {{cita.medico_id.empleado_id.usuario_curp.apellidoMaterno }}</p>
                             <p>Hora inicio: {{cita.hora_inicio}}</p>
                             <p>Hora término: {{cita.hora_fin}}</p>
                             <p>Fecha: {{cita.fecha}}</p>
                         </li>
                     {% endfor %}
-                    <div class="dropdown-divider"></div>
-                </ul>
-            </div>
-            <div class="col-md-6">
-                <ul class="list-group">
-                    <li class="list-group-item active text-center">Citas Previas</li>
-                    <li class="list-group-item">
-                        <p>Nombre paciente: Edgar Alejandro Ramírez Fuentes</p>
-                        <p>Fecha de la Cita: 20/01/2021</p>
-                        <p>Hora término: 15:30</p>
-                    </li>
-                    <div class="dropdown-divider"></div>
-                    <li class="list-group-item">
-                        <p>Nombre paciente: Edgar Alejandro Ramírez Fuentes</p>
-                        <p>Fecha de la Cita: 21/01/2021/p>
-                        <p>Hora término: 15:30</p>
-                    </li>
                     <div class="dropdown-divider"></div>
                 </ul>
             </div>

@@ -1,4 +1,4 @@
-{% extends 'gestion_paciente/base.html' %}
+{% extends 'gestion_pacientes/base.html' %}
 {% load static %}
 
 {% block title %}
@@ -12,33 +12,31 @@
 
 {% block content %}
 <div class="container">
-    <p class="text-center display-6 text-primary mt-5">Nueva Contraseña</p>
+    <p class="display-4 text-center text-primary mt-5">Nueva Contraseña</p>
     <div class="mb-5"></div>
     <div class="container">
         <div class="row justify-content-center">
         <div class="col-sm-6 main-section">
-          <div class="modal-content">
-            <div class="col-3 user-img">
-              <img src="{% static 'home/img/CEDAE_logo.jpeg' %}">
-            </div>
-          </div>
           <div class="mb-3"></div>
-            <form class="col-12" method="POST" id="iniciarSesionForm" name="iniciarSesionForm"> 
+            <form class="col-12" method="POST" id="iniciarSesionForm" name="iniciarSesionForm">
+              {% csrf_token %}
               <label for="inputPassword5" class="form-label">Ingrese su nueva contraseña</label>
               <input type="password" id="inputPassword5" class="form-control" aria-describedby="passwordHelpBlock">
               <div id="passwordHelpBlock" class="form-text">
-              Su contraseña debe tener entre 8 y 20 caracteres, contener letras y números, y no debe contener espacios, caracteres especiales ni emoji.
+                Su contraseña debe tener entre 8 y 20 caracteres, contener letras y números, y no debe contener espacios, caracteres especiales ni emoji.
               </div>
               <div class="mb-3"></div>
               <label for="inputPassword5" class="form-label">Confirme su nueva contraseña</label>
-              <input type="password" id="inputPassword5" class="form-control" aria-describedby="passwordHelpBlock">
+              <input type="password" name="newPass" id="inputPassword5" class="form-control" aria-describedby="passwordHelpBlock">
               <div id="passwordHelpBlock" class="form-text">
-              Su contraseña debe tener entre 8 y 20 caracteres, contener letras y números, y no debe contener espacios, caracteres especiales ni emoji.
+                Su contraseña debe tener entre 8 y 20 caracteres, contener letras y números, y no debe contener espacios, caracteres especiales ni emoji.
               </div>
               <div class="mb-5"></div>
               <div class="container">
                 <div class="row justify-content-end">
-                  <div class="col-5"><button type="button" onclick="validarCredenciales()" id="iniciarSesionbtn" class="btn btn-primary">Guardar contraseña</button></div>
+                  <div class="col-5">
+                    <button type="submit" id="iniciarSesionbtn" class="btn btn-primary">Guardar contraseña</button>
+                  </div>
                 </div>
               </div>
             </form>
