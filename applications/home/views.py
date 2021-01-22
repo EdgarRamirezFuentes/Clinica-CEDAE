@@ -5,6 +5,7 @@ from ..gestion_pacientes.models import Paciente
 from ..gestion_medicos.models import Medico
 from ..gestion_farmacia.models import Encargado_farmacia
 from ..gestion_recepcion.models import Recepcionista
+from ..gestion_pacientes.models import Paciente
 from django.contrib import messages
 import hashlib
 
@@ -72,7 +73,7 @@ class Login(TemplateView):
                             return redirect('homeMedico')
                         else:
                             messages.error(request, 'La contraseña ingresada no es correcta')
-                if str(tipo[0]) == 'encargado':
+                elif str(tipo[0]) == 'encargado':
                     try:
                         encargado = Encargado_farmacia.objects.get(empleado_id_id=usuario.curp)
                     except Encargado_farmacia.DoesNotExist as ex:
@@ -83,7 +84,7 @@ class Login(TemplateView):
                             return redirect('homefarmacia')
                         else:
                             messages.error(request, 'La contraseña ingresada no es correcta')
-                if str(tipo[0]) == 'recepcionista':
+                elif str(tipo[0]) == 'recepcionista':
                     try:
                         recepcionista = Recepcionista.objects.get(empleado_id_id=usuario.curp)
                     except Recepcionista.DoesNotExist as ex:
@@ -92,6 +93,19 @@ class Login(TemplateView):
                         if usuario.contrasenia == contrasenia:
                             request.session['id_recepcionista'] = usuario.curp
                             return redirect('homerecepcion')
+                        else:
+                            messages.error(request, 'La contraseña ingresada no es correcta')
+                elif str(tipo[0]) == 'paciente':
+                    try:
+                        paciente = Paciente.objects.get(idUsuario_id=usuario.curp)
+                    except Paciente.DoesNotExist as ex:
+                        messages.error(request, 'No existe un paciente con el correo electrónico ingresado')
+                    if paciente:
+                        if not paciente.accesoSistema:
+                            messages.error(request, 'No tienes acceso al sistema Favor de pedir que se te dé de alta en tu clínica')
+                        elif usuario.contrasenia == contrasenia:
+                            request.session['id_paciente'] = usuario.curp
+                            return redirect('homePaciente')
                         else:
                             messages.error(request, 'La contraseña ingresada no es correcta')
                 #elif tipo == 'paciente':
