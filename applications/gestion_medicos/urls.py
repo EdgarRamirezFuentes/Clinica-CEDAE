@@ -12,6 +12,8 @@ urlpatterns = [
     path('medico/registrar-paciente/', views.RegisterPatient.as_view(), name='registerPatientMedico'),
     path('medico/perfil-paciente/<pk>/', views.verPerfilPaciente.as_view(), name='patientProfileMedico'),
     path('medico/cita/<pk>/', views.appointment.as_view(), name='appointmentMedico'),
+    path('medico/activar-expediente/<pk>/', views.ActivarExpediente.as_view(), name='activarExpedienteMedico'),
+    path('medico/activar-cuenta/<pk>/', views.ActivarCuenta.as_view(), name='activarCuentaMedico'),
     path('medico/expediente-medico/<pk>/', views.verExpedientePaciente.as_view(), name='medicalRecordMedico'),
     path('medico/modificar-expediente/<pk>/', views.modificarExpediente.as_view(), name='modifyMedicalRecordMedico'),
 ]

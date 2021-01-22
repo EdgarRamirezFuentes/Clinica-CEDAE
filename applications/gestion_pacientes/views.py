@@ -39,6 +39,7 @@ class verExpediente(TemplateView):
         context['consultas'] = Consulta.objects.filter(expediente_id = self.kwargs.get('pk'))
         context['recetas'] = Receta.objects.filter()
         context['expediente'] = Expediente.objects.get(pk = self.kwargs.get('pk'))
+        context['acceso'] = Paciente.objects.values('accesoExpediente').get(pk = self.kwargs.get('pk'))
         return context
         
 class cambiarContraseña(TemplateView):

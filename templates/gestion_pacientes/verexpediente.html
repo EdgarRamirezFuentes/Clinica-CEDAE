@@ -17,6 +17,8 @@
         <script>message("{{message}}", "{{message.tags}}");</script>  
     {% endfor %}
 {% endif %}
+
+{% if expediente.paciente_curp.accesoExpediente %}
 <div class="container">
     <div class="row">
         <p class="text-center w-100 mt-5 text-primary display-4">Historia clínica dermatologica</p>
@@ -163,6 +165,14 @@
         </div>
     </div>
 </div>
+{% else %}
+<div class="container">
+    <div class="row">
+        <p class="text-center w-100 mt-5 text-primary display-4">No tienes acceso a tu expediente clínico</p>
+        <p class="text-center w-100 mt-5 text-primary display-5">Visita a tu médico para solicitar acceso a tu expediente médico</p>
+    </div>
+</div>
+{% endif %}
 {% endblock %}
 
 {% block scripts %}

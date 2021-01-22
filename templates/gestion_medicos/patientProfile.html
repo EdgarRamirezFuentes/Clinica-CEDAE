@@ -6,11 +6,19 @@
 {% endblock title %}
 
 {% block styles %}
+<script src="{% static 'gestion_medicos/scripts/alertas.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 
 {% endblock styles %}
 
 
 {% block content %}
+{% if messages %}
+    {% for message in messages %}
+        <script>message("{{message}}", "{{message.tags}}");</script>  
+    {% endfor %}
+{% endif %}
 <div class="container">
     <div class="row justify-content-center">
         <p class="display-4 text-center text-primary mt-5">Datos del paciente</p>
@@ -66,8 +74,11 @@
                         
                         
                             <div class="d-flex mb-4">
-                                {% if  paciente.accesoSistema == False %}
-                                    <div class="col-md-6"><button class="w-100 text-center btn btn-success">Activar cuenta</button></div>
+                                {% if  not paciente.accesoSistema %}
+                                    <div class="col-md-6"><a href="{% url 'activarCuentaMedico' paciente.idUsuario %}" class="w-100 text-center btn btn-success">Activar cuenta CEDAE</a></div>
+                                {% endif %}
+                                {% if paciente.accesoSistema and not paciente.accesoExpediente %}
+                                    <div class="col-md-6"><a href="{% url 'activarExpedienteMedico' paciente.idUsuario %}" class="w-100 text-center btn btn-success">Dar acceso expediente</a></div>
                                 {% endif %}
                                 <div class="col-md-6"><a href="{% url 'medicalRecordMedico' paciente.idUsuario %}"><button class="w-100 text-center btn btn-primary">Ver expediente</button></a></div>
                             </div>

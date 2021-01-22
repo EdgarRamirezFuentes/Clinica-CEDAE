@@ -16,6 +16,7 @@ from ..gestion_pacientes.models import Consulta
 from ..gestion_expediente.models import Expediente
 from ..gestion_medicos.models import Medico
 from ..gestion_farmacia.models import Medicamento
+import hashlib
 
 class Home(TemplateView):
     template_name = 'gestion_medicos/home.html'
@@ -393,3 +394,42 @@ class RegisterPatient(TemplateView):
                         except Exception as ex:
                             messages.error(request, 'Hubo un error al tratar de registrar al paciente')
         return redirect('registerPatientMedico')            
+
+class ActivarExpediente(TemplateView):
+    def get(self, *args, **kwargs):
+        usuario = Usuario.objects.get(pk=self.kwargs.get('pk'))
+        paciente = Paciente.objects.get(pk = self.kwargs.get('pk'))
+        paciente.accesoExpediente = True
+        paciente.save()
+        send_mail(
+                'Acceso a expediente CEDAE',
+                'Tu médico te ha otorgado acceso a tu expediente médico con éxito',
+                settings.EMAIL_HOST_USER,
+                [usuario.correo,],
+                fail_silently = False,
+        )
+        messages.success(self.request, 'El acceso a expediente ha sido brindado con éxito')
+        return redirect('patientProfileMedico', self.kwargs.get('pk'))
+
+class ActivarCuenta(TemplateView):
+    template_name = 'gestion_medicos/patientProfile.html'
+    def get(self, *args, **kwargs):
+        usuario = Usuario.objects.get(pk=self.kwargs.get('pk'))
+        paciente = Paciente.objects.get(pk = self.kwargs.get('pk'))
+        contrasenia = usuario.curp
+        encoder = hashlib.new("sha1", str(contrasenia).encode('utf-8'))
+        contrasenia = str(encoder.hexdigest()) 
+        usuario.contrasenia = contrasenia
+        usuario.save()
+        paciente.accesoSistema = True
+        paciente.save()
+        send_mail(
+                'Activación de cuenta CEDAE',
+                'Tu cuenta CEDAE ha sido activada. \n Credenciales \n Correo: ' + usuario.correo + '\nContraseña: ' + usuario.curp,
+                settings.EMAIL_HOST_USER,
+                [usuario.correo,],
+                fail_silently = False,
+        )
+        messages.success(self.request, 'La cuenta ha sido activada con éxito')
+        return redirect('patientProfileMedico', self.kwargs.get('pk'))
+    pass
