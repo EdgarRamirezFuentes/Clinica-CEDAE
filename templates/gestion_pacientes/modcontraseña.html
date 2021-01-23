@@ -6,7 +6,9 @@
 {% endblock title %}
 
 {% block styles %}
-
+<script src="{% static 'gestion_medicos/scripts/alertas.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 {% endblock styles %}
 
 
@@ -17,19 +19,25 @@
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-sm-6 main-section">
-            <form class="col-12" method="POST" id="iniciarSesionForm" name="iniciarSesionForm">
-              <label for="inputPassword5" class="form-label">Para continuar ingrese su contraseña actual</label>
-              <input type="password" id="inputPassword5" class="form-control" aria-describedby="passwordHelpBlock">
+            <form class="col-12" method="POST" id="cambiarPassForm" name="cambiarPassForm">
+              {% csrf_token %}
+              <p class="text-danger labelError" id="passActualError"></p>
+              <label for="passActual" class="form-label">Ingrese su contraseña actual</label>
+              <input type="password" id="passActual" name="passActual" class="form-control" aria-describedby="passwordHelpBlock">
               <div class="mb-3"></div>
-              <label for="inputPassword5" class="form-label">Ingresa nuevamente su contraseña</label>
-              <input type="password" id="inputPassword5" class="form-control" aria-describedby="passwordHelpBlock">
               <div class="mb-5"></div>
-              <div class="row">
-                <div class="col-md-3 offset-md-4">
-                  <a href="{% url 'newPassword'  request.session.id_paciente %}">
-                    <button type="button" onclick="" id="iniciarSesionbtn" class="btn btn-primary">Siguiente</button>
-                  </a>
-                </div>
+              <p class="text-danger labelError" id="passNuevaError"></p>
+              <label for="passNueva" class="form-label">Ingrese su nueva contraseña</label>
+              <input type="password" id="passNueva" name ="passNueva" class="form-control" aria-describedby="passwordHelpBlock">
+              <div id="passwordHelpBlock" class="form-text mt-3">
+                Su contraseña debe tener entre 8 y 20 caracteres, contener letras o números, y no debe contener espacios, caracteres especiales ni emoji.
+              </div>
+              <div class="mb-3"></div>
+              <p class="text-danger labelError" id="passNuevaConfirmacionError"></p>
+              <label for="passNuevaConfirmacion" class="form-label">Confirme su nueva contraseña</label>
+              <input type="password" name="newPass" id="passNuevaConfirmacion" class="form-control" aria-describedby="passwordHelpBlock">
+              <div class="col-md-10 offset-md-4 mt-3">
+                  <button type="button" onclick="modificarContrasenia()" id="iniciarSesionbtn" class="btn btn-primary">Modificar contraseña</button>
               </div>
             </form>
           </div>
@@ -40,5 +48,5 @@
 
 
 {% block scripts %}
-
+<script src="{% static 'gestion_medicos/scripts/changePassword.js' %}"></script>
 {% endblock scripts %}

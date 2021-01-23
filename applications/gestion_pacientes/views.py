@@ -12,6 +12,7 @@ from ..gestion_pacientes.models import Receta
 from ..gestion_pacientes.models import Cita
 from ..gestion_pacientes.models import Consulta
 from ..gestion_expediente.models import Expediente
+import hashlib
 
 # Create your views here.
 
@@ -44,17 +45,27 @@ class verExpediente(TemplateView):
         
 class cambiarContraseña(TemplateView):
     template_name = 'gestion_pacientes/modcontraseña.html'
-
-class nuevaContraseña(TemplateView):
-    template_name = 'gestion_pacientes/nuevacontraseña.html'
+    
     def post(self, request, *args, **kwargs):
         if request.method == 'POST':
             usuario = Usuario.objects.get(curp = self.kwargs.get('pk'))
-            usuario.contrasenia = request.POST['newPass']
+            contraseniaNueva = request.POST['passNueva'].strip()
+            print(contraseniaNueva)
+            encoder = hashlib.new("sha1", str(contraseniaNueva).encode('utf-8'))
+            contraseniaNueva = str(encoder.hexdigest()) 
+            print(contraseniaNueva)
+            usuario.contrasenia = contraseniaNueva
             try:
                 usuario.save()
+                send_mail(
+                'Cambio de contraseña exitoso',
+                'Tu cambio de contraseña ha sido exitoso',
+                settings.EMAIL_HOST_USER,
+                [usuario.correo,],
+                fail_silently = False,
+                )
                 messages.success(request, 'Contraseña modificada correctamente')
             except Exception as es:
                 messages.error(request, 'Hubo un error al intentar modificar la contraseña')
         return redirect('homePaciente')
-        
+
