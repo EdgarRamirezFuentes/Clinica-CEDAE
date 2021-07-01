@@ -33,6 +33,6 @@ Django
 ## Contributors <a name = "contributors"></a>
 
 [![](https://github.com/EdgarRamirezFuentes.png?size=50)](https://github.com/EdgarRamirezFuentes) 
-[![](https://github.com/LuisAHC.png?size=50)](https://github.com/EdgarRamirezFuentes)
-[![](https://github.com/RayBaker221.png?size=50)](https://github.com/EdgarRamirezFuentes)
-[![](https://github.com/NadPat9.png?size=50)](https://github.com/EdgarRamirezFuentes) 
+[![](https://github.com/LuisAHC.png?size=50)](https://github.com/LuisAHC)
+[![](https://github.com/RayBaker221.png?size=50)](https://github.com/RayBaker221)
+[![](https://github.com/NadPat9.png?size=50)](https://github.com/NadPat9) 
